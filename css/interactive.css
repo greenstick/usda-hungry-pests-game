@@ -1,0 +1,215 @@
+/*
+Font Styles
+*/
+
+/*
+Color Palette
+*/
+
+.yllw {
+	color: rgba(229, 196, 57, 1);
+}
+.frst {
+	color:rgba(0, 91, 38, 1) ;
+}
+
+/*
+Animations
+*/
+
+@-webkit-keyframes wiggle {
+    0% {-webkit-transform: translate(0px, 0px);}
+    25% {-webkit-transform: translate(0px, -3px);}
+    50% {-webkit-transform: translate(0px, -4px);}
+    75% {-webkit-transform: translate(0px, -3px);}
+    100% {-webkit-transform: translate(0px, 0px);}
+
+}
+
+/*
+General Styles
+*/
+
+#interactive-wrapper {
+	position: relative;
+	width: 964px;
+	height: 550px;
+	margin: 0 auto;
+	overflow: hidden;
+	color: #FFFFFF;
+	font-family: sans-serif;
+}
+#interactive-wrapper:focus {
+	outline: none;
+}
+#interactive-wrapper .viewport {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 964px;
+	height: 550px;
+	overflow: hidden;
+}
+#interactive-wrapper .viewport .scenes {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 964px;
+	height: 2750px;
+}
+#interactive-wrapper .viewport .scenes .scene {
+	position: relative;
+	top: 0px;
+	left: 0px;
+	width: 964px;
+	height: 550px;
+}
+#interactive-wrapper .viewport .scenes .scene .background {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 964px;
+	height: 550px;
+}
+#interactive-wrapper .viewport .scenes .scene .interactive-elements, #interactive-wrapper .viewport .scenes .scene .static-elements {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 964px;
+	height: 550px;
+}
+#interactive-wrapper .viewport .scenes .scene .interactive-elements .item:hover {
+	cursor: pointer;
+	-webkit-animation-name: wiggle;
+    -webkit-animation-duration: .4s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: ease;
+}
+
+/*
+Evergreen
+*/
+
+#evergreen .progress-bar {
+	position: absolute;
+	top: 0px;
+	left: 8px;
+	width: 48px;
+	height: 486px;
+}
+#evergreen .progress-bar .bar {
+	position: relative;
+	width: 48px;
+	height: 120px;
+	margin: 4px 0;
+}
+#evergreen .progress-bar .bar .bar-stem {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 12px;
+	height: 104px;
+	padding: 8px 0;
+	background-color: rgba(42, 255, 121, .9);
+}
+#evergreen .progress-bar .bar .bar-stem .inner {
+	position: absolute;
+	top: 8px;
+	left: 4px;
+	width: 4px;
+	height: 104px;
+	background-color: rgba(186, 216, 76, .5);
+}
+#evergreen .progress-bar .bar .bar-leaf {
+	position: absolute;
+	top: 42px;
+	left: 12px;
+	height: 32px;
+	width: 36px;
+	border-radius: 0px 8px 8px 0px;
+	background-color: rgba(94, 191, 38, .9);
+	color: #ffffff;
+	font-size: 20px;
+	line-height: 32px;
+	text-align: center;
+	cursor: pointer;
+}
+#evergreen .progress-bar .bar.complete .bar-stem {
+	background-color: rgba(90, 117, 45, .9);
+}
+#evergreen .progress-bar .bar.complete .bar-stem .inner {
+	background-color: rgba(68, 89, 28, .5);
+}
+#evergreen .notepad {
+	position: absolute;
+	top: -3px;
+	right: 20px;
+	width: 132px;
+	height: 486px;
+	background-image: url("../img/notepad.png");
+}
+
+/*
+Opening
+*/
+
+#opening {
+	background-image: url("../img/opening.png");
+}
+#opening .header {
+	position: absolute;
+	top: 72px;
+	left: 50%;
+	width: 600px;
+	height: 200px;
+	margin: 0 0 0 -300px;
+	text-align: center;
+	font-size: 72px;
+}
+#opening .begin {
+	position: absolute;
+	top: 248px;
+	left: 50%;
+	width: 208px;
+	height: 20px;
+	margin: 0 0 0 -104px;
+	text-align: center;
+	line-height: 20px;
+	font-size: 18px;
+	cursor: pointer;
+}
+
+/*
+Kitchen
+*/
+
+#kitchen {
+	background-image: url("../img/kitchen.png");
+}
+
+/*
+Garage
+*/
+
+#garage {
+	background-image: url("../img/garage.png");
+}
+
+/*
+Outdoors
+*/
+
+#outdoors {
+	background-image: url("../img/outdoors.png");
+}
+
+/*
+Final
+*/
+
+#final {
+	position: absolute;
+	width: 964px;
+	height: 550px;
+
+}

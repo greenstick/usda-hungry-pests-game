@@ -1,0 +1,23 @@
+[
+	{
+		"id": "Oatmeal",
+		"pest": {
+            "copy": "The <strong>Khapra Beetle</strong> is one of the world's most destructive pests of stored grain products, including the oats used to make oatmeal",
+            "src": "img/pests/khapra-beetle.png"
+        }
+	},
+	{
+		"id": "Raspberries",
+		"pest": {
+            "copy": "The <strong>light brown apple moth</strong> attacks raspberries, blackberries, and boysenberries.",
+            "src": "img/pests/light-brown-apple-moth.png"
+        }	
+	},
+	{
+		"id": "Bananas",
+		"pest": {
+            "copy": "The <strong>false codling moth</strong> is a threat to many of our fruits, including bananas.",
+            "src": "img/pests/false-codling-moth.png"
+        }
+	}
+]
