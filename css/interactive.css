@@ -37,7 +37,7 @@ General Styles
 	margin: 0 auto;
 	overflow: hidden;
 	color: #FFFFFF;
-	font-family: sans-serif;
+	font-family: 'Montserrat', sans-serif;
 }
 #interactive-wrapper:focus {
 	outline: none;
@@ -64,27 +64,233 @@ General Styles
 	width: 964px;
 	height: 550px;
 }
-#interactive-wrapper .viewport .scenes .scene .background {
+#interactive-wrapper .viewport .scenes .scene .subscene {
 	position: absolute;
 	top: 0px;
 	left: 0px;
 	width: 964px;
 	height: 550px;
 }
-#interactive-wrapper .viewport .scenes .scene .interactive-elements, #interactive-wrapper .viewport .scenes .scene .static-elements {
+#interactive-wrapper .viewport .scenes .scene .mask, #interactive-wrapper .viewport .scenes .scene .img-mask {
 	position: absolute;
 	top: 0px;
 	left: 0px;
 	width: 964px;
 	height: 550px;
+	opacity: .5;
+	display: none;
 }
-#interactive-wrapper .viewport .scenes .scene .interactive-elements .item:hover {
+#interactive-wrapper .viewport .scenes .scene .interactive-element {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 964px;
+	height: 550px;
+	z-index: 100;
+}
+#interactive-wrapper .viewport .scenes .scene .interactive-element .item {
+	opacity: .8;
+}
+#interactive-wrapper .viewport .scenes .scene .interactive-element .item.selectable {
+	opacity: 1;
+}
+#interactive-wrapper .viewport .scenes .scene .interactive-element .item.selectable:hover {
 	cursor: pointer;
 	-webkit-animation-name: wiggle;
     -webkit-animation-duration: .4s;
     -webkit-animation-iteration-count: infinite;
     -webkit-animation-timing-function: ease;
 }
+#interactive-wrapper .icon {
+	width: 40px;
+	height: 40px;
+}
+
+/*
+Unique Icons
+*/
+
+#interactive-wrapper .icon.oatmeal {
+	background: url('../img/elements/icons.png') 0 0;
+}
+#interactive-wrapper .icon.oatmeal.active {
+	background: url('../img/elements/icons.png') -40 0;
+}
+#interactive-wrapper .icon.sketchpad {
+	background: url('../img/elements/icons.png') 0 0;
+}
+#interactive-wrapper .icon.sketchpad.active {
+	background: url('../img/elements/icons.png') -40 0;
+}
+#interactive-wrapper .icon.flowers {
+	background: url('../img/elements/icons.png') 0 0;
+}
+#interactive-wrapper .icon.flowers.active {
+	background: url('../img/elements/icons.png') -40 0;
+}
+#interactive-wrapper .icon.hiking {
+	background: url('../img/elements/icons.png') 0 0;
+}
+#interactive-wrapper .icon.hiking.active {
+	background: url('../img/elements/icons.png') -40 0;
+}
+#interactive-wrapper .icon.treehouse {
+	background: url('../img/elements/icons.png') 0 0;
+}
+#interactive-wrapper .icon.treehouse.active {
+	background: url('../img/elements/icons.png') -40 0;
+}
+#interactive-wrapper .icon.ketchup {
+	background: url('../img/elements/icons.png') 0 0;
+}
+#interactive-wrapper .icon.ketchup.active {
+	background: url('../img/elements/icons.png') -40 0;
+}
+#interactive-wrapper .icon.apples {
+	background: url('../img/elements/icons.png') 0 0;
+}
+#interactive-wrapper .icon.apples.active {
+	background: url('../img/elements/icons.png') -40 0;
+}
+#interactive-wrapper .icon.nuts {
+	background: url('../img/elements/icons.png') 0 0;
+}
+#interactive-wrapper .icon.nuts.active {
+	background: url('../img/elements/icons.png') -40 0;
+}
+#interactive-wrapper .icon.grapes {
+	background: url('../img/elements/icons.png') 0 0;
+}
+#interactive-wrapper .icon.grapes.active {
+	background: url('../img/elements/icons.png') -40 0;
+}
+#interactive-wrapper .icon.swing {
+	background: url('../img/elements/icons.png') 0 0;
+}
+#interactive-wrapper .icon.swing.active {
+	background: url('../img/elements/icons.png') -40 0;
+}
+#interactive-wrapper .icon.ball {
+	background: url('../img/elements/icons.png') 0 0;
+}
+#interactive-wrapper .icon.ball.active {
+	background: url('../img/elements/icons.png') -40 0;
+}
+#interactive-wrapper .icon.orangejuice {
+	background: url('../img/elements/icons.png') 0 0;
+}
+#interactive-wrapper .icon.orangejuice.active {
+	background: url('../img/elements/icons.png') -40 0;
+}
+#interactive-wrapper .icon.chipsguac {
+	background: url('../img/elements/icons.png') 0 0;
+}
+#interactive-wrapper .icon.chipsguac.active {
+	background: url('../img/elements/icons.png') -40 0;
+}
+#interactive-wrapper .icon.bananas {
+	background: url('../img/elements/icons.png') 0 0;
+}
+#interactive-wrapper .icon.bananas.active {
+	background: url('../img/elements/icons.png') -40 0;
+}
+#interactive-wrapper .icon.magazines {
+	background: url('../img/elements/icons.png') 0 0;
+}
+#interactive-wrapper .icon.magazines.active {
+	background: url('../img/elements/icons.png') -40 0;
+}
+#interactive-wrapper .icon.lemonade {
+	background: url('../img/elements/icons.png') 0 0;
+}
+#interactive-wrapper .icon.lemonade.active {
+	background: url('../img/elements/icons.png') -40 0;
+}
+#interactive-wrapper .icon.corn {
+	background: url('../img/elements/icons.png') 0 0;
+}
+#interactive-wrapper .icon.corn.active {
+	background: url('../img/elements/icons.png') -40 0;
+}
+#interactive-wrapper .icon.bike {
+	background: url('../img/elements/icons.png') 0 0;
+}
+#interactive-wrapper .icon.bike.active {
+	background: url('../img/elements/icons.png') -40 0;
+}
+#interactive-wrapper .icon.macncheese {
+	background: url('../img/elements/icons.png') 0 0;
+}
+#interactive-wrapper .icon.macncheese.active {
+	background: url('../img/elements/icons.png') -40 0;
+}
+#interactive-wrapper .icon.brownies {
+	background: url('../img/elements/icons.png') 0 0;
+}
+#interactive-wrapper .icon.brownies.active {
+	background: url('../img/elements/icons.png') -40 0;
+}
+#interactive-wrapper .icon.picnic {
+	background: url('../img/elements/icons.png') 0 0;
+}
+#interactive-wrapper .icon.picnic.active {
+	background: url('../img/elements/icons.png') -40 0;
+}
+#interactive-wrapper .icon.puppy {
+	background: url('../img/elements/icons.png') 0 0;
+}
+#interactive-wrapper .icon.puppy.active {
+	background: url('../img/elements/icons.png') -40 0;
+}
+#interactive-wrapper .icon.hoodie {
+	background: url('../img/elements/icons.png') 0 0;
+}
+#interactive-wrapper .icon.hoodie.active {
+	background: url('../img/elements/icons.png') -40 0;
+}
+#interactive-wrapper .icon.books {
+	background: url('../img/elements/icons.png') 0 0;
+}
+#interactive-wrapper .icon.books.active {
+	background: url('../img/elements/icons.png') -40 0;
+}
+#interactive-wrapper .icon.peanutbutter {
+	background: url('../img/elements/icons.png') 0 0;
+}
+#interactive-wrapper .icon.peanutbutter.active {
+	background: url('../img/elements/icons.png') -40 0;
+}
+#interactive-wrapper .icon.syrup {
+	background: url('../img/elements/icons.png') 0 0;
+}
+#interactive-wrapper .icon.syrup.active {
+	background: url('../img/elements/icons.png') -40 0;
+}
+#interactive-wrapper .icon.bat {
+	background: url('../img/elements/icons.png') 0 0;
+}
+#interactive-wrapper .icon.bat.active {
+	background: url('../img/elements/icons.png') -40 0;
+}
+#interactive-wrapper .icon.applebasket {
+	background: url('../img/elements/icons.png') 0 0;
+}
+#interactive-wrapper .icon.applebasket.active {
+	background: url('../img/elements/icons.png') -40 0;
+}
+#interactive-wrapper .icon.pancakes {
+	background: url('../img/elements/icons.png') 0 0;
+}
+#interactive-wrapper .icon.pancakes.active {
+	background: url('../img/elements/icons.png') -40 0;
+}
+#interactive-wrapper .icon.raspberries {
+	background: url('../img/elements/icons.png') 0 0;
+}
+#interactive-wrapper .icon.raspberries.active {
+	background: url('../img/elements/icons.png') -40 0;
+}
+
 
 /*
 Evergreen
@@ -96,6 +302,7 @@ Evergreen
 	left: 8px;
 	width: 48px;
 	height: 486px;
+	z-index: 1000;
 }
 #evergreen .progress-bar .bar {
 	position: relative;
@@ -146,7 +353,8 @@ Evergreen
 	right: 20px;
 	width: 132px;
 	height: 486px;
-	background-image: url("../img/notepad.png");
+	background-image: url("../img/elements/notepad.png");
+	z-index: 1000;
 }
 
 /*
@@ -154,7 +362,7 @@ Opening
 */
 
 #opening {
-	background-image: url("../img/opening.png");
+	background-image: url("../img/backgrounds/opening.png");
 }
 #opening .header {
 	position: absolute;
@@ -184,7 +392,7 @@ Kitchen
 */
 
 #kitchen {
-	background-image: url("../img/kitchen.png");
+	background-image: url("../img/backgrounds/kitchen.png");
 }
 
 /*
@@ -192,7 +400,7 @@ Garage
 */
 
 #garage {
-	background-image: url("../img/garage.png");
+	background-image: url("../img/backgrounds/garage.png");
 }
 
 /*
@@ -200,7 +408,7 @@ Outdoors
 */
 
 #outdoors {
-	background-image: url("../img/outdoors.png");
+	background-image: url("../img/backgrounds/outdoors.png");
 }
 
 /*
@@ -211,5 +419,4 @@ Final
 	position: absolute;
 	width: 964px;
 	height: 550px;
-
 }

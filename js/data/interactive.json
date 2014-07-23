@@ -1,6 +1,20 @@
 [
     {
+        "index": 1,
+        "scene": "opening",
+        "limit": false,
+        "scroll": true,
+        "collector": false,
+        "progress": false,
+        "item": false
+    },
+    {
+        "index": 2,
         "scene": "kitchen-fridge",
+        "limit": 3,
+        "scroll": false,
+        "collector": true,
+        "progress": true,
         "item": [
             {
                 "id": "oatmeal",
@@ -92,7 +106,12 @@
         ]
     },
     {
+        "index": 2,
         "scene": "kitchen-table",
+        "limit": 3,
+        "scroll": false,
+        "collector": true,
+        "progress": true,
         "item": [
             {
                 "id": "peanutbutter",
@@ -151,7 +170,12 @@
         ]
     },
     {
+        "index": 2,
         "scene": "kitchen-cupboard",
+        "limit": 2,
+        "scroll": true,
+        "collector": true,
+        "progress": true,
         "item": [
             {
                 "id": "grapes",
@@ -206,7 +230,12 @@
         ]
     },
     {
+        "index": 3,
         "scene": "garage",
+        "limit": 3,
+        "scroll": true,
+        "collector": true,
+        "progress": true,
         "item": [
             {
                 "id": "magazines",
@@ -298,7 +327,12 @@
         ]
     },
     {
+        "index": 4,
         "scene": "outdoor",
+        "limit": 3,
+        "scroll": true,
+        "collector": true,
+        "progress": true,
         "item": [
             {
                 "id": "treehouse",
@@ -411,5 +445,14 @@
                 }
             }
         ]
+    },
+    {
+        "index": 5,
+        "scene": "final",
+        "limit": false,
+        "scroll": false,
+        "collector": false,
+        "progress": true,
+        "item": false
     }
 ]
