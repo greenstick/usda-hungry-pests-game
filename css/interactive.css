@@ -89,9 +89,6 @@ General Styles
 	z-index: 100;
 }
 #interactive-wrapper .viewport .scenes .scene .interactive-element .item {
-	opacity: .8;
-}
-#interactive-wrapper .viewport .scenes .scene .interactive-element .item.selectable {
 	opacity: 1;
 }
 #interactive-wrapper .viewport .scenes .scene .interactive-element .item.selectable:hover {
@@ -100,6 +97,9 @@ General Styles
     -webkit-animation-duration: .4s;
     -webkit-animation-iteration-count: infinite;
     -webkit-animation-timing-function: ease;
+}
+#interactive-wrapper .viewport .scenes .scene .interactive-element .item.selected {
+	/*display: none;*/
 }
 #interactive-wrapper .icon {
 	width: 40px;

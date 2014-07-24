@@ -1,310 +1,143 @@
 (function () {
 
-/*
-Snap Scroller - Dependencies: jQuery, jQuerys.scrollTo, & Modernizr (optional for mobile)
-*/
-
-	var Snapscroller = function (args) {
-		var snap 					= this;
-			snap.element 			= args.element,
-			snap.parent 			= args.parent,
-			snap.easing 			= args.easing 				|| 		"linear",
-			snap.duration 			= args.duration 			|| 		600,
-			snap.first 				= 'snapscroller-first',
-			snap.current 			= 'snapscroller-current',
-			snap.last 				= 'snapscroller-last',
-			// snap.mobile 			= (typeof Modernizr !== 'undefined') ? ((Modernizr.touch) ? true : false) : false,
-			snap.scrolling 			= false,
-			snap.enabled 			= true,
-			snap.startPosition,
-			snap.delta;
-	};
-
-	//Determines Whether to Bind Scroll Handler to Touch Events or Desktop Scroll
-	// Snapscroller.prototype.init  				= function () {
-	// 	var snap = this;
-	// 	$(snap.element).first().addClass(snap.first).addClass(snap.current);
-	// 	$(snap.element).last().addClass(snap.last);
-	// 	if (snap.mobile === true) {
-	// 		$(snap.element).on("touchstart", function (e) {
-	// 			snap.touchStart(e);
-	// 		});
-	// 		$(snap.element).on("touchmove", function (e) {
-	// 			snap.touchMoveY(e);
-	// 		});
-	// 	} else {
-	// 		$(snap.element).on('mousewheel DOMMouseScroll MozMousePixelScroll wheel', function (e) {
-	// 			snap.scrollDelta(e);
-	// 		});
-	// 	};
-	// };
-
-	Snapscroller.prototype.init 				= function () {
-		var snap = this;
-		$(snap.element).first().addClass(snap.first).addClass(snap.current);
-		$(snap.element).last().addClass(snap.last);
-	};
-
-	//Set Scroll Delta
-	Snapscroller.prototype.scrollDelta 			= function (e) {
-		this.delta = 0;
-		if (!e) e = window.event;
-		if (e.originalEvent.wheelDelta) {
-			this.delta = e.originalEvent.wheelDelta / 120;
-		} else if (e.originalEvent.detail) {
-			this.delta = - e.originalEvent.detail / 3;
-		};
-		if (this.delta && this.enabled === true) {
-			e.preventDefault ? e.preventDefault() : e.returnValue = false;
-			this.scrollDirectionY();
-		};
-	};
-
-	//Set Touch Start Coordinates
-	Snapscroller.prototype.touchStart 			= function (e) {
-		var start = {x: 0, y: 0};
-			start.x = e.originalEvent.pageX;
-			start.y = e.originalEvent.pageY;
-			this.startPosition = start;
-	};
-
-	//Binds touchmove Y Axis Event to Delta
-	Snapscroller.prototype.touchMoveY 			= function (e) {
-		var offset = {};
-		offset.y = this.startPosition.y - e.originalEvent.pageY;
-		this.delta = offset.y;
-		if (Math.abs(this.delta) >= 10 && this.enabled === true) {
-			e.preventDefault ? e.preventDefault() : e.returnValue = false;
-			this.scrollDirectionY();
-		};
-	};
-
-	//Determines direction to Scroll and Calls scrollPage Function
-	Snapscroller.prototype.scrollDirectionY 	= function () {
-		if (this.mobile === true) {
-			if (this.scrolling === false) {
-				if (this.delta > -1.25) {
-					this.scrolling = true;
-					this.scrollPageY('next');
-				} else if (this.delta < 1.25) {
-					this.scrolling = true;
-					this.scrollPageY('prev');
-				};
-			};
-		} else {
-			if (this.scrolling === false) {
-				if (this.delta <= -1) {
-					this.scrolling = true;
-					this.scrollPageY('next');
-				} else if (this.delta >= 1) {
-					this.scrolling = true;
-					this.scrollPageY('prev');
-				};
-			};
-		};
-	};
-
-	//Scrolls to Next or Previous Page
-	Snapscroller.prototype.scrollPageY			= function (destination, callback) {
-		var snap = this, id, callback = callback || null;
-		//Next Page
-		if (destination === 'next') {
-			if ($('.' + snap.last).hasClass(snap.current)) {
-				snap.scrolling = false;
-				return;
-			} else {
-				$('.' + snap.current).removeClass(snap.current).next().addClass(snap.current);
-				var navTimer = setTimeout(function () {
-					snap.to("." + snap.current, snap.duration, callback);
-				}, snap.duration);
-			};
-		//Previous Page
-		} else if (destination === 'prev') {
-			if ($('.' + snap.first).hasClass(snap.current)) {
-				snap.scrolling = false;
-				return;
-			} else {
-				$('.' + snap.current).removeClass(snap.current).prev().addClass(snap.current);
-				var navTimer = setTimeout(function () {
-					snap.to("." + snap.current, snap.duration, callback);
-				}, snap.duration);
-			};
-		} else {
-			return false;
-		};
-	};
-
-	Snapscroller.prototype.to 					= function (loc, duration, callback) {
-		var snap = this;
-		$(snap.parent).scrollTo(loc, {
-			duration: duration,
-			axis: "y",
-			easing: snap.easing,
-			onAfter: function () {
-				snap.scrolling = false;
-				if (typeof callback === 'function') callback();
-			}
-		});
-	};
-
-/***************************************************************************************************/
-
-/*
-Item Prototype
-*/
-
-	var Item 		= function (args) {
-		var item 				= this;
-			item.element 		= args.id,
-			item.quiz 			= args.quiz,
-			item.vin 			= args.vin;
-		return this;
-	};
-
-/***************************************************************************************************/
-
-/*
-Scene Prototype
-*/
-
-	var Scene 		= function (args) {
-		var scene 				= this;
-			scene.name 			= args.name,
-			scene.index 		= args.index,
-			scene.limit 		= args.limit,
-			scene.scroll 		= args.scroll,
-			scene.collector 	= args.collector,
-			scene.progress 		= args.progress;
-		return this;
-	};
-
-/***************************************************************************************************/
-
-/*
-Progress Bar
-*/
-
-	var Progress 	= function (args) {
-
-	};
-
-/***************************************************************************************************/
-
-/*
-Item Collector
-*/
-
-	var Collector 	= function (args) {
-		var coll 				= this;
-			coll.element 		= args.element,
-			coll.items 			= ko.observableArray([]),
-			coll.all 			= ko.observableArray([]);
-	};
-
-	Collector.prototype.clear 					= function () {
-		var coll = this;
-		for (var i = 0; i < coll.items().length; i++) {
-			coll.all.push(coll.items()[i]);
-		};
-		console.log(coll.all());
-		coll.items([]);
-		console.log(coll.items());
-	};
-
-	Collector.prototype.add 					= function (id) {
-		var coll = this;
-		coll.items.push({item: id});
-		console.log(coll.items());
-	};
-
-/***************************************************************************************************/
-
-/*
-Modal Prototype
-*/
-
-	var Modal 		= function (args) {
-		var modal 				= this;
-			modal.element 		= args.element,
-			modal.mask 			= args.mask 		|| 	false, //optional
-			modal.open 			= args.open,
-			modal.close 		= args.close;
-        return this;
-	};
-
-/*
-Modal Methods
-*/
-
-    //Open Modal
-	Modal.prototype.openModal   				= function () {
-		var modal = this;
-		if (this.mask !== false) $(modal.mask).fadeIn();
-		$(modal.element).fadeIn();
-	};
-
-    //Close Modal
-	Modal.prototype.closeModal  				= function () {
-		var modal = this;
-		if (this.mask !== false) $(modal.mask).fadeOut();
-		$(modal.element).fadeOut();
-	};
-
-/***************************************************************************************************/
-
-/*
-Quiz
-*/
-
-	var Quiz 		= function (args) {
-		var quiz 				= this;
-			quiz.question 		= ko.observable(args.question),
-			quiz.answer 		= ko.observableArray(args.answer);
-	};
-
-	Quiz.prototype.checkResponse 				= function () {
-		var quiz = this;
-	};
-
 /***************************************************************************************************/
 
 /*
 Interactive Parent
 */
-
+	
+	//Define & Declare Variables
 	var Interactive = function () {
-		var Int 					= this;
+		var Int = this;
 			Int.wrapper 			= '#interactive-wrapper',
 			Int.slider 				= '.viewport',
+			Int.index 				= 1,
+			Int.indexed 			= '.indexed',
 			Int.scene 				= '.scene',
-			Int.subscene			= '.subscene',
-			Int.interativeElement 	= '.interactive-element',
+			Int.sub 				= '.sub',
+			Int.interactiveElement 	= '.interactive-element',
 			Int.imgMask 			= '.img-mask',
 			Int.mask 				= '.mask',
-			Int.snapScroll 			= new Snapscroller({
-				element 			: '.scene',
-				parent 				: '.viewport',
-				duration 			: 600
-			}),
-			Int.mobile 				= (typeof Modernizr !== 'undefined') ? ((Modernizr.touch) ? true : false) : false,
-			Int.collector 			= new Collector({
-				element 			: 'item-collector'
-			}),
-			Int.item 				= '.item',
+			Int.duration 			=  600,
+			Int.easing 				= 'linear',
+			Int.item		 		= '.item',
 			Int.itemSelectable 		= '.item.selectable',
+			Int.snapFirst 			= 'snapscroll-first',
+			Int.snapCurrent 		= 'snapscroll-current',
+			Int.snapLast 			= 'snapscroll-last',
+			Int.introPrompt 		= '#opening .begin',
 			Int.items 				= {},
-			Int.scenes 				= {},
-			Int.sceneIndex 			= 0,
-			Int.sceneName,
-			Int.sceneLimit,
-			Int.sceneScroll,
-			Int.sceneCollector,
-			Int.sceneProgress,
+			Int.scenes 				= ko.observableArray([]),
+			Int.masks 				= {},
+			Int.scrollEnabled 		= true,
+			Int.scrolling 			= false,
+			Int.sceneData,
+			Int.delta,
+			Int.collector,
+			Int.progressBar,
+			Int.quiz,
+			Int.currentScene,
+			Int.lastScene,
+			Int.mobile,
 			Int.data;
 	};
 
 /*
-Methods
+Constructors
+*/
+
+	//Item Contructor
+	Interactive.prototype._Item_				= function (args) {
+		var item 			= this;
+			item.element 	= args.id,
+			item.quiz 		= args.quiz,
+			item.vin 		= args.vin;
+		return item;
+	};
+
+	//Scene Constructor
+	Interactive.prototype._Scene_ 				= function (args) {
+		var scene 			= this;
+			scene.name 		= args.name,
+			scene.sub 		= args.sub,
+			scene.index 	= args.index,
+			scene.limit 	= args.limit,
+			scene.scroll 	= args.scroll,
+			scene.collector = args.collector,
+			scene.progress 	= args.progress;
+		return scene;
+	};
+
+	//Item Collector
+	Interactive.prototype._ItemCollector_ 		= function (args) {
+		var coll 			= this;
+			coll.element 	= args.element,
+			coll.items 		= ko.observableArray([]),
+			coll.all 		= ko.observableArray([]),
+
+		/*
+		Methods
+		*/
+
+			//Clear Items Array
+			coll.clear 		= function () {
+				for (var i = 0; i < coll.items().length; i++) {
+					coll.all.push(coll.items()[i]);
+				};
+				console.log(coll.all());
+				coll.items([]);
+				console.log(coll.items());
+			},
+			//Add to Items Array
+			coll.add 		= function (id) {
+				coll.items.push({item: id});
+				console.log(coll.items());
+			};
+
+		return coll;
+	};
+
+	//Progress Bar Constructor
+	Interactive.prototype._ProgressBar_ 		= function (args) {
+		var bar 			= this;
+			bar.element 	= args.element;
+		return bar;
+	};
+
+	//Mask Constructor
+	Interactive.prototype._Mask_ 				= function (args) {
+		var mask 			= this;
+			mask.element 	= args.element,
+			mask.close 		= args.close,
+
+		/*
+		Methods
+		*/
+
+			//Show Mask
+			mask.show 		= function () {
+				console.log(mask.element);
+				console.log($(mask.element));
+				$(mask.element).fadeIn();
+			},
+			//Hide Mask
+			mask.hide 		= function () {
+				$(mask.element).fadeOut();
+			};
+
+        return mask;
+	};
+
+	//Quiz Constructor
+	Interactive.prototype._Quiz_ 				= function (args) {
+		var quiz 			= this;
+			quiz.question 	= ko.observable(args.question),
+			quiz.answer 	= ko.observableArray(args.answer);
+		return quiz;
+	};
+
+/*
+Interactive Global Methods - Setup
 */
 
 	//XHR JSON Data
@@ -316,28 +149,137 @@ Methods
 		});
 	};
 
-	//Initializes Interactive Scenes
-	Interactive.prototype.initScenes 			= function () {
-		var Int = this;
-		for (var i = 0; i < Int.data.length; i++) {
-			var scene = new Scene({
-				name 		: 	Int.data[i].scene,
-				index 		: 	Int.data[i].index,
-				limit 		: 	Int.data[i].limit,
-				scroll 		: 	Int.data[i].scroll,
-				collector 	: 	Int.data[i].collector,
-				progress 	: 	Int.data[i].progress
-			});
-			Int.scenes[Int.data[i].scene] = scene;
-		};
+	//Employ Modernizr to Detect Touch Events Else Default to Desktop Scroll Events
+	Interactive.prototype.detectMobile 				= function () {
+		this.mobile = (typeof Modernizr !== 'undefined') ? ((Modernizr.touch) ? true : false) : false;
+		return this.mobile;
 	};
+
+/*
+Interactive Navigation Handling
+*/
+
+	//Bind Scroll
+	Interactive.prototype.bindScroll  			= function () {
+		var Int = this;
+		$(Int.scene).first().addClass(Int.snapFirst).addClass(Int.snapCurrent);
+		$(Int.scene).last().addClass(Int.snapLast);
+		if (Int.mobile === true) {
+			$(Int.wrapper).on("touchstart", function (e) {
+				if (Int.scrollEnabled === true) Int.touchStart(e);
+			});
+			$(Int.wrapper).on("touchmove", function (e) {
+				if (Int.scrollEnabled === true) Int.touchMoveY(e);
+			});
+		} else {
+			$(Int.wrapper).on('mousewheel DOMMouseScroll MozMousePixelScroll wheel', function (e) {
+				if (Int.scrollEnabled === true) Int.scrollDelta(e);
+			});
+		}
+	};
+
+	//Measure / Normalize Scroll Delta 
+	Interactive.prototype.scrollDelta 			= function (e) {
+		this.delta = 0;
+		if (!e) e = window.event;
+		if (e.originalEvent.wheelDelta) {
+			this.delta = e.originalEvent.wheelDelta / 120;
+		} else if (e.originalEvent.detail) {
+			this.delta = - e.originalEvent.detail / 3;
+		}
+		if (this.delta) {
+			e.preventDefault ? e.preventDefault() : e.returnValue = false;
+			this.scrollDirectionY();
+		}
+	};
+
+	//Set Touch Start Coordinates (Triggered by Mobile Bindings)
+	Interactive.prototype.touchStart 			= function (e) {
+		var start = {x: 0, y: 0};
+		start.x = e.originalEvent.pageX;
+		start.y = e.originalEvent.pageY;
+		this.startPosition = start;
+	};
+
+	//Maps Touchmove on Y-Axis to Delta
+	Interactive.prototype.touchMoveY 			= function (e) {
+		var offset = {};
+		offset.y = this.startPosition.y - e.originalEvent.pageY;
+		this.delta = offset.y;
+		if (Math.abs(this.delta) >= 10) {
+			e.preventDefault ? e.preventDefault() : e.returnValue = false;
+			this.scrollDirectionY();
+		}
+	};
+
+	//Scrolls To Next or Previous Page
+	Interactive.prototype.scrollPageY 			= function (destination, callback) {
+		var Int = this,
+		//Private Scrolling Function
+		snapTo = function (loc, callback) {
+			$(Int.slider).scrollTo(loc, {
+				duration: Int.duration,
+				axis: "y",
+				easing: Int.easing,
+				onAfter: function () {
+					Int.scrolling = false;
+					if (typeof callback === 'function') callback();
+				}
+			});
+		};
+		//Determine Where to Scroll
+		if (destination === 'next') {
+			if ($('.' + Int.snapLast).hasClass(Int.snapCurrent)) return (Int.scrolling = false);
+			$('.' + Int.snapCurrent).removeClass(Int.snapCurrent).next().addClass(Int.snapCurrent);
+			var navTimer = setTimeout(function () {
+				snapTo('.' + Int.snapCurrent);
+			}, Int.duration);
+		} else if (destination === 'prev') {
+			if ($('.' + Int.snapFirst).hasClass(Int.snapCurrent)) return (Int.scrolling = false);
+			$('.' + Int.snapCurrent).removeClass(Int.snapCurrent).prev().addClass(Int.snapCurrent);
+			var navTimer = setTimeout(function () {
+				snapTo('.' + Int.snapCurrent);
+			}, Int.duration);
+		} else {
+			console.log("Scroll Destination Error: " + destination);
+		}
+	};
+
+	//Uses Delta to Determine Scroll Direction
+	Interactive.prototype.scrollDirectionY 		= function () {
+		if (this.mobile === true) {
+			if (this.scrolling === false) {
+				if (this.delta > -1.25) {
+					this.scrolling = true;
+					this.nextScene();
+				} else if (this.delta < 1.25) {
+					this.scrolling = true;
+					this.prevScene();
+				} else return;
+			};
+		} else {
+			if (this.scrolling === false) {
+				if (this.delta <= -1) {
+					this.scrolling = true;
+					this.nextScene();
+				} else if (this.delta >= 1) {
+					this.scrolling = true;
+					this.prevScene();
+				} else return;
+			}
+		}
+	};
+
+/*
+Interactive Item Handling
+*/
 
 	//Initializes Collectable Items
 	Interactive.prototype.initItems 			= function () {
 		var Int = this;
 		for (var i = 0; i < Int.data.length; i++) {
 			for (var j = 0; j < Int.data[i].item.length; j++) {
-				var item = new Item({
+				var item = new Int._Item_({
 					id 		: 	Int.data[i].item[j].id,
 					quiz 	: 	Int.data[i].item[j].quiz,
 					vin 	: 	Int.data[i].item[j].vin,
@@ -348,149 +290,163 @@ Methods
 			}
 		}
 	};
-	//Binds Snap Scroll Events 
-	Interactive.prototype.bindSnapScroll 		= function () {
-		var Int = this;
-		if (Int.mobile === true) {
-			$(Int.snapScroll.element).on("touchstart", function (e) {
-				Int.snapScroll.touchStart(e);
-			});
-			$(Int.snapScroll.element).on("touchmove", function (e) {
-				Int.snapScroll.touchMoveY(e);
-			});
-		} else {
-			$(Int.snapScroll.element).on('mousewheel DOMMouseScroll MozMousePixelScroll wheel', function (e) {
-				Int.snapScroll.scrollDelta(e);
-			});
-		};
-	};
 
 	//Item Selection
 	Interactive.prototype.selectItem 			= function (id) {
 		var Int = this;
-		d3.select('#' + id).classed('selectable', false);
-		Int.setState('fridge');
+		d3.select('#' + id).classed('selectable', false).classed('selected', true);
 		if (Int.items[id].vin !== false) {
 			Int.vinvasive(id);
 		} else if (Int.items[id].quiz !== false) {
-			Int.newQuiz(Int.items[id].quiz);
+			Int.newQuiz(id);
 		} else {
 			Int.collector.add(id);
-			if (Int.sceneLimit === (Int.collector.items().length + 1)) {
+			if (Int.sceneLimit === (Int.collector.items().length)) {
 				Int.sceneEnd();
 			};
 		};
 	};
 
-	//Vinvasive Popout
+/*
+Interactive Quiz & Vin Vasive
+*/
+
 	Interactive.prototype.vinvasive 			= function (id) {
 		var Int = this;
 		console.log(Int.items[id].vin);
 		Int.collector.add(id);
+		if (Int.sceneLimit === (Int.collector.items().length)) {
+			Int.sceneEnd();
+		};
 	};
 
-	//Quiz
-	Interactive.prototype.newQuiz 				= function (args) {
+	Interactive.prototype.newQuiz 				= function (id) {
 		var Int = this;
-		new Quiz(args);
-	};
-
-	//Set State
-	Interactive.prototype.setState 				= function (state) {
-		var Int = this;
-			$(Int.subscene).css('z-index', 0);
-			$('.' + state).css('z-index', 100);
-			$('.' + state + ' ' + Int.imgMask).fadeIn();
-	};
-
-	//Interactive Scene Start
-	Interactive.prototype.sceneInit 			= function (scene) {
-		var Int = this, scene = Int.scenes[scene];
-			Int.sceneIndex 		= scene.index;
-			Int.sceneScroll 	= scene.scroll;
-			Int.sceneName 		= scene.scene;
-			Int.sceneLimit 		= scene.limit;
-			Int.sceneCollector 	= scene.collector;
-			Int.sceneProgress 	= scene.progress;
-	};
-
-	//Interactive Scene End
-	Interactive.prototype.sceneEnd 				= function (scene) {
-		var Int = this;
-		for (var i = 0; i < Int.data.length; i++) {
-			if (Int.data[i].index === (Int.sceneIndex + 1)) {
-				Int.sceneInit(Int.data[i].scene);
-				Int.nextScene();
-				console.log(Int.data[i].scene);
-			};
-		}
+		console.log(Int.items[id].quiz);
+		Int.collector.add(id);
+		if (Int.sceneLimit === (Int.collector.items().length)) {
+			Int.sceneEnd();
+		};
 	};
 
 /*
-Macros
+Interactive Scene Handling
 */
 
-	//Initialize Macro
+	//Initialize Scene
+	Interactive.prototype.setSceneData 			= function () {
+		var Int = this;
+		for (var i = 0; i < Int.data.length; i++) {
+			if ((i + 1) === Int.index) {
+				Int.sceneData = Int.data[i];
+			}
+		}
+		console.log(Int.sceneData);
+		return Int.sceneData;
+	};
+
+	//Set Sub Scene
+	Interactive.prototype.setSubScene 			= function () {
+		var Int = this;
+		if (typeof Int.sceneData.sub === 'string') {
+			$('.subscene').css('z-index', 0);
+			$('#' + Int.sceneData.sub).css('z-index', 100);
+		};
+	};
+
+	//Set Masks
+	Interactive.prototype.setMasks 				= function () {
+		var Int = this;
+		if (Int.sceneData.mask === true) {
+			var mask = new Int._Mask_({
+				element 	: '#' + Int.sceneData.scene + ' .mask',
+				close 		: '#' + Int.sceneData.scene + ' .mask .dismiss'
+			});
+			mask.show();
+		};
+		if (Int.sceneData.imgMask === true) {
+			var imgMask = new Int._Mask_({
+				element 	: '#' + Int.sceneData.scene + ' .img-mask',
+				close 		: '#' + Int.sceneData.scene + ' .img-mask .dismiss'
+			});
+			imgMask.show();
+		};
+	};
+
+/*
+Interactive Global Macro Methods
+*/
+
+	//Initialization Macro
 	Interactive.prototype.init 					= function () {
 		var Int = this;
 		Int.getData(function () {
+			console.log(Int.data);
+			Int.detectMobile();
+			Int.bindScroll();
 			Int.initItems();
-			Int.initScenes();
-			Int.snapScroll.init();
-			Int.snapScroll.enabled = false;
-			Int.bindSnapScroll();
-			Int.sceneInit('opening');
-			ko.applyBindings(Int.collector, document.getElementById(Int.collector.item));
+			Int.setSceneData();
+			//Initialize Item Collector
+			Int.collector = new Int._ItemCollector_({element: '.item-collector'});
 		});
 	};
+
 	//Next Scene Macro
-	Interactive.prototype.nextScene 			= function (scrolling) {
+	Interactive.prototype.nextScene 			= function () {
 		var Int = this;
-		Int.snapScroll.enabled = true;
-		if (scrolling !== true) Int.snapScroll.scrollPageY("next", function () {
-			Int.snapScroll.enabled = false;
-		});
+		Int.index++
+		if (Int.sceneData.scroll === true) {
+			Int.setSceneData();
+			Int.setMasks();
+			Int.setSubScene();
+			Int.scrollPageY("next");
+		} else {
+			Int.setSceneData();
+			Int.setMasks();
+			Int.setSubScene();
+		}
 	};
+
 	//Previous Scene Macro
-	Interactive.prototype.prevScene 			= function (scrolling) {
+	Interactive.prototype.prevScene 			= function () {
 		var Int = this;
-		Int.snapScroll.enabled = true;
-		if (scrolling !== true) Int.snapScroll.scrollPageY("prev");
+		Int.scrollPageY("prev");
 	};
 
 /*
-Instantiate & Initialize
+Instantiation & Initialization
 */
 
 	var interactive = new Interactive();
-		interactive.init();
+		interactive.init()
 
 /*
-Bind Item Events
+Global Event Bindings
+*/
+
+	//Sets Interactive as Focus For Keypress Events on Mouseover
+	$(interactive.wrapper).on("mouseover", function () {
+		$(this).focus();
+	});
+
+	//Arrow Up & Arrow Down Navigation
+	$(interactive.wrapper).on("keydown", function (e) {
+		if (e.keyCode === 40) (e.preventDefault(), interactive.nextScene());
+    	if (e.keyCode === 38) (e.preventDefault(), interactive.prevScene());
+	});
+	//Click Intro Prompt To Start
+	$(interactive.introPrompt).on("click", function (e) {
+		interactive.nextScene();
+	});
+
+/*
+Item Event Bindings
 */
 
 	$(interactive.wrapper + " " + interactive.itemSelectable).on("click", function (e) {
 		var id = e.currentTarget.id;
 		interactive.selectItem(id);
-	});
+	});	
 
-/*
-Bind Scroll Events
-*/
+}(jQuery, ko, d3));
 
-	//Sets Interactive as Focus For Keypress Events
-	$(interactive.wrapper).on("mouseover", function () {
-		$(this).focus();
-	});
-
-	//Arrow Up & Down Navigation
-	$(interactive.wrapper).on('keydown', function (e) {
-		if (e.keyCode === 40) (e.preventDefault(), interactive.nextScene());
-    	if (e.keyCode === 38) (e.preventDefault(), interactive.prevScene());
-	});
-	//Click to Start
-	$('#opening .begin').on("click", function (e) {
-		interactive.nextScene();
-	});
-
-}(jQuery, d3, ko))

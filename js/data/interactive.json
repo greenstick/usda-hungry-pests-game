@@ -2,19 +2,37 @@
     {
         "index": 1,
         "scene": "opening",
+        "sub": false,
         "limit": false,
         "scroll": true,
-        "collector": false,
-        "progress": false,
+        "collector": {
+            "display": false,
+            "init": false,
+            "reset": false
+        },
+        "progress": {
+            "display": false
+        },
+        "mask": false,
+        "imgMask": false,
         "item": false
     },
     {
         "index": 2,
-        "scene": "kitchen-fridge",
+        "scene": "kitchen",
+        "sub": "fridge",
         "limit": 3,
         "scroll": false,
-        "collector": true,
-        "progress": true,
+        "collector": {
+            "display": true,
+            "init": true,
+            "reset": false
+        },
+        "progress": {
+            "display": true
+        },
+        "mask": true,
+        "imgMask": true,
         "item": [
             {
                 "id": "oatmeal",
@@ -106,12 +124,21 @@
         ]
     },
     {
-        "index": 2,
-        "scene": "kitchen-table",
+        "index": 3,
+        "scene": "kitchen",
+        "sub": "table",
         "limit": 3,
         "scroll": false,
-        "collector": true,
-        "progress": true,
+        "collector": {
+            "display": true,
+            "init": false,
+            "reset": false
+        },
+        "progress": {
+            "display": true
+        },
+        "mask": false,
+        "imgMask": true,
         "item": [
             {
                 "id": "peanutbutter",
@@ -170,12 +197,21 @@
         ]
     },
     {
-        "index": 2,
-        "scene": "kitchen-cupboard",
+        "index": 4,
+        "scene": "kitchen",
+        "sub": "cupboard",
         "limit": 2,
         "scroll": true,
-        "collector": true,
-        "progress": true,
+        "collector": {
+            "display": true,
+            "init": false,
+            "reset": false
+        },
+        "progress": {
+            "display": true
+        },
+        "mask": false,
+        "imgMask": true,
         "item": [
             {
                 "id": "grapes",
@@ -230,12 +266,21 @@
         ]
     },
     {
-        "index": 3,
+        "index": 5,
         "scene": "garage",
+        "sub": "false",
         "limit": 3,
         "scroll": true,
-        "collector": true,
-        "progress": true,
+        "collector": {
+            "display": true,
+            "init": false,
+            "reset": true
+        },
+        "progress": {
+            "display": true
+        },
+        "mask": true,
+        "imgMask": false,
         "item": [
             {
                 "id": "magazines",
@@ -327,12 +372,21 @@
         ]
     },
     {
-        "index": 4,
+        "index": 6,
         "scene": "outdoor",
+        "sub": false,
         "limit": 3,
         "scroll": true,
-        "collector": true,
-        "progress": true,
+        "collector": {
+            "display": true,
+            "init": false,
+            "reset": true
+        },
+        "progress": {
+            "display": true
+        },
+        "mask": true,
+        "imgMask": false,
         "item": [
             {
                 "id": "treehouse",
@@ -447,12 +501,21 @@
         ]
     },
     {
-        "index": 5,
+        "index": 7,
         "scene": "final",
+        "sub": false,
         "limit": false,
         "scroll": false,
-        "collector": false,
-        "progress": true,
+        "collector": {
+            "display": false,
+            "init": false,
+            "reset": true
+        },
+        "progress": {
+            "display": true
+        },
+        "mask": false,
+        "imgMask": false,
         "item": false
     }
 ]
