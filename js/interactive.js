@@ -31,11 +31,21 @@ Interactive Parent
 			Int.masks 				= {},
 			Int.scrollEnabled 		= true,
 			Int.scrolling 			= false,
+			Int.itemCount 			= 0,
+			Int.collectorIcon 		= '#icon-collector .icons .icon',
+			Int.quizElement 		= '#quiz',
+			Int.quizExit 			= '#quiz .exit',
+			Int.vinvasive 			= '#vinvasive',
+			Int.terrifyingComment 	= '#vinvasive .evil-words',
+			Int.activeQuizItem,
+			Int.activeTerror,
 			Int.sceneData,
 			Int.delta,
 			Int.collector,
 			Int.progressBar,
 			Int.quiz,
+			Int.currentMask,
+			Int.currentImgMask,
 			Int.currentScene,
 			Int.lastScene,
 			Int.mobile,
@@ -48,50 +58,55 @@ Constructors
 
 	//Item Contructor
 	Interactive.prototype._Item_				= function (args) {
-		var item 			= this;
-			item.element 	= args.id,
-			item.quiz 		= args.quiz,
-			item.vin 		= args.vin;
+		var item 				= this;
+			item.element 		= args.id,
+			item.quiz 			= args.quiz,
+			item.vin 			= args.vin;
 		return item;
 	};
 
 	//Scene Constructor
 	Interactive.prototype._Scene_ 				= function (args) {
-		var scene 			= this;
-			scene.name 		= args.name,
-			scene.sub 		= args.sub,
-			scene.index 	= args.index,
-			scene.limit 	= args.limit,
-			scene.scroll 	= args.scroll,
-			scene.collector = args.collector,
-			scene.progress 	= args.progress;
+		var scene 				= this;
+			scene.name 			= args.name,
+			scene.sub 			= args.sub,
+			scene.index 		= args.index,
+			scene.limit 		= args.limit,
+			scene.scroll 		= args.scroll,
+			scene.collector 	= args.collector,
+			scene.progress 		= args.progress;
 		return scene;
 	};
 
 	//Item Collector
 	Interactive.prototype._ItemCollector_ 		= function (args) {
-		var coll 			= this;
-			coll.element 	= args.element,
-			coll.items 		= ko.observableArray([]),
-			coll.all 		= ko.observableArray([]),
+		var coll 				= this;
+			coll.element 		= args.element,
+			coll.ui 			= args.ui,
+			coll.all 			= ko.observableArray([]),
+			coll.icons 			= ko.observableArray([]),
 
 		/*
 		Methods
 		*/
 
-			//Clear Items Array
-			coll.clear 		= function () {
-				for (var i = 0; i < coll.items().length; i++) {
-					coll.all.push(coll.items()[i]);
-				};
-				console.log(coll.all());
-				coll.items([]);
-				console.log(coll.items());
-			},
 			//Add to Items Array
-			coll.add 		= function (id) {
-				coll.items.push({item: id});
-				console.log(coll.items());
+			coll.add 			= function (id) {
+				coll.icons.push(id);
+				// coll.icons.valueHasMutated();
+				console.log("added " + id);
+			},
+			coll.remove 		= function (id) {
+				coll.icons.remove(id);
+				// coll.icons.valueHasMutated();
+				console.trace("removed " + id);
+			},
+			//Clear Items Array
+			coll.clear 			= function () {
+				for (var i = 0; i < coll.icons().length; i++) {
+					coll.all.push(coll.icons()[i]);
+				};
+				coll.icons([]);
 			};
 
 		return coll;
@@ -99,30 +114,33 @@ Constructors
 
 	//Progress Bar Constructor
 	Interactive.prototype._ProgressBar_ 		= function (args) {
-		var bar 			= this;
-			bar.element 	= args.element;
+		var bar 				= this;
+			bar.element 		= args.element;
 		return bar;
 	};
 
 	//Mask Constructor
 	Interactive.prototype._Mask_ 				= function (args) {
-		var mask 			= this;
-			mask.element 	= args.element,
-			mask.close 		= args.close,
+		var mask 				= this;
+			mask.element 		= args.element,
+			mask.close 			= args.close,
+			mask.showing;
 
 		/*
 		Methods
 		*/
 
 			//Show Mask
-			mask.show 		= function () {
-				console.log(mask.element);
-				console.log($(mask.element));
+			mask.show 			= function () {
 				$(mask.element).fadeIn();
+				mask.showing = true;
+				console.log("showing mask");
 			},
 			//Hide Mask
-			mask.hide 		= function () {
+			mask.hide 			= function () {
 				$(mask.element).fadeOut();
+				mask.showing = false;
+				console.log("hiding mask");
 			};
 
         return mask;
@@ -130,9 +148,27 @@ Constructors
 
 	//Quiz Constructor
 	Interactive.prototype._Quiz_ 				= function (args) {
-		var quiz 			= this;
-			quiz.question 	= ko.observable(args.question),
-			quiz.answer 	= ko.observableArray(args.answer);
+		var quiz 				= this;
+			quiz.parent 		= args.parent,
+			quiz.question 		= ko.observable(args.question),
+			quiz.answer 		= ko.observableArray(args.answer),
+			quiz.result 		= ko.observable(),
+
+		/*
+		Methods
+		*/
+
+			quiz.show 			= function () {
+				$(quiz.parent.quizElement).fadeIn();
+			},
+			quiz.hide 			= function () {
+				$(quiz.parent.quizElement).fadeOut();
+				quiz.parent.dismissQuiz();
+			},
+			quiz.selectAnswer  	= function (data) {
+				quiz.result(data.result)
+			};
+
 		return quiz;
 	};
 
@@ -294,39 +330,142 @@ Interactive Item Handling
 	//Item Selection
 	Interactive.prototype.selectItem 			= function (id) {
 		var Int = this;
+		console.log("select item called");
+		// console.log(Int.itemCount);
+		// console.log(Int.sceneData.limit);
+		if (Int.itemCount === Int.sceneData.limit) return;
+		console.log("selecting item");
+		if (Int.currentImgMask.showing === true) Int.currentImgMask.hide();
 		d3.select('#' + id).classed('selectable', false).classed('selected', true);
-		if (Int.items[id].vin !== false) {
-			Int.vinvasive(id);
+		if (Int.items[id].vin.element !== false) {
+			Int.terrify(id);
 		} else if (Int.items[id].quiz !== false) {
-			Int.newQuiz(id);
+			Int.loadQuiz(id);
 		} else {
 			Int.collector.add(id);
-			if (Int.sceneLimit === (Int.collector.items().length)) {
+			Int.itemCount++;
+			if ((Int.itemCount) === Int.sceneData.limit) {
 				Int.sceneEnd();
 			};
 		};
 	};
 
+	//Item Deselection
+	Interactive.prototype.deselectItem 			= function (id, e) {
+		var Int = interactive;
+		console.log($(Int.collectorIcon + "." + id));
+		if ($(Int.collectorIcon + "." + id).hasClass('noselect')) return;
+		Int.collector.remove(id);
+		d3.select("#" + id).classed('selected', false).classed('selectable', true);
+		Int.itemCount--;
+	};
+
 /*
 Interactive Quiz & Vin Vasive
 */
-
-	Interactive.prototype.vinvasive 			= function (id) {
+	
+	//Terrify With The Evil Vin Vasive
+	Interactive.prototype.terrify 				= function (id) {
 		var Int = this;
-		console.log(Int.items[id].vin);
-		Int.collector.add(id);
-		if (Int.sceneLimit === (Int.collector.items().length)) {
+		$(Int.terrifyingComment).text(Int.items[id].vin.copy);
+		$(Int.vinvasive).fadeIn();
+		$(Int.wrapper + ' .' + Int.items[id].vin.element).fadeIn();
+		Int.activeTerror = id;
+		console.log($(Int.wrapper + ' .' + Int.items[id].vin.element));
+	};
+
+	//Make Him Go Away
+	Interactive.prototype.dismissTerror 		= function () {
+		var Int = this;
+		$(Int.vinvasive).fadeOut();
+		$(Int.wrapper + ' .' + Int.items[Int.activeTerror].vin.element).fadeOut();
+		Int.collector.add(Int.activeTerror);
+		Int.itemCount++;
+		if (Int.itemCount === Int.sceneData.limit) {
 			Int.sceneEnd();
 		};
 	};
 
-	Interactive.prototype.newQuiz 				= function (id) {
+	//Clear old Quiz Data and Load New Data
+	Interactive.prototype.loadQuiz 				= function (id) {
 		var Int = this;
-		console.log(Int.items[id].quiz);
-		Int.collector.add(id);
-		if (Int.sceneLimit === (Int.collector.items().length)) {
+		Int.quiz.answer([]);
+		Int.quiz.result(null);
+		Int.quiz.question(Int.items[id].quiz.question);
+		for (var i = 0; i < Int.items[id].quiz.answer.length; i++) {
+			Int.quiz.answer.push(ko.observable(Int.items[id].quiz.answer[i]));
+		};
+		Int.quiz.show();
+		Int.activeQuizItem = id;
+	};
+	//Dismiss Quiz and Push Item to Collector
+	Interactive.prototype.dismissQuiz 			= function () {
+		var Int = this;
+		Int.collector.add(Int.activeQuizItem);
+		Int.itemCount++;
+		if (Int.itemCount === Int.sceneData.limit) {
 			Int.sceneEnd();
 		};
+	};
+
+/*
+Collector & Progress Handling
+*/
+
+	Interactive.prototype.showCollector 		= function () {
+		var Int = this;
+		if (Int.sceneData.collector.display === true) $(Int.collector.ui).fadeIn();
+	};
+
+	Interactive.prototype.hideCollector 		= function () {
+		var Int = this;
+		$(Int.collector.ui).fadeOut();
+	};
+
+	Interactive.prototype.setProgress 			= function () {
+		var Int = this;
+
+	};
+
+
+/*
+Mask Handling
+*/
+
+	//Set Mask
+	Interactive.prototype.setMask 				= function () {
+		var Int = this;
+		console.log("setting mask");
+		if (Int.sceneData.mask === true) {
+			var prefix = (Int.sceneData.sub !== false) ? '#' + Int.sceneData.sub : '#' + Int.sceneData.scene,
+			mask = new Int._Mask_({
+				element 	: prefix + ' .mask',
+				close 		: prefix + ' .mask .dismiss'
+			});
+			mask.show();
+			Int.currentMask = mask;
+		};
+	};
+
+	//Set Image Mask
+	Interactive.prototype.setImgMask 				= function () {
+		var Int = this;
+		console.log("setting img mask");
+		if (Int.sceneData.imgMask === true) {
+			var prefix = (Int.sceneData.sub !== false) ? '#' + Int.sceneData.sub : '#' + Int.sceneData.scene,
+			imgMask = new Int._Mask_({
+				element 	: prefix + ' .img-mask',
+				close 		: prefix + ' .img-mask .dismiss'
+			});
+			imgMask.show();
+			Int.currentImgMask = imgMask;
+		};
+	};
+
+	Interactive.prototype.hideMasks 			= function () {
+		var Int = this;
+		if (typeof Int.currentMask !== 'undefined') Int.currentMask.hide();
+		if (typeof Int.currentImgMask !== 'undefined')Int.currentImgMask.hide();
 	};
 
 /*
@@ -341,7 +480,7 @@ Interactive Scene Handling
 				Int.sceneData = Int.data[i];
 			}
 		}
-		console.log(Int.sceneData);
+		Int.itemCount = 0;
 		return Int.sceneData;
 	};
 
@@ -354,23 +493,12 @@ Interactive Scene Handling
 		};
 	};
 
-	//Set Masks
-	Interactive.prototype.setMasks 				= function () {
+	//End Scene
+	Interactive.prototype.sceneEnd 				= function () {
 		var Int = this;
-		if (Int.sceneData.mask === true) {
-			var mask = new Int._Mask_({
-				element 	: '#' + Int.sceneData.scene + ' .mask',
-				close 		: '#' + Int.sceneData.scene + ' .mask .dismiss'
-			});
-			mask.show();
-		};
-		if (Int.sceneData.imgMask === true) {
-			var imgMask = new Int._Mask_({
-				element 	: '#' + Int.sceneData.scene + ' .img-mask',
-				close 		: '#' + Int.sceneData.scene + ' .img-mask .dismiss'
-			});
-			imgMask.show();
-		};
+		Int.hideMasks();
+		Int.nextScene();
+		console.log('scene end');
 	};
 
 /*
@@ -387,30 +515,51 @@ Interactive Global Macro Methods
 			Int.initItems();
 			Int.setSceneData();
 			//Initialize Item Collector
-			Int.collector = new Int._ItemCollector_({element: '.item-collector'});
+			Int.collector = new Int._ItemCollector_({element: '#item-collector', ui: '.notepad'});
+			//Initialize Progress Bar
+
+			//Initialize Quiz
+			Int.quiz = new Int._Quiz_({parent: Int, question: '', answer: []});
+
+			ko.applyBindings(interactive, document.getElementById('interactive-wrapper'));
 		});
 	};
 
 	//Next Scene Macro
 	Interactive.prototype.nextScene 			= function () {
 		var Int = this;
+		//If Mask is Showing, Fade It Out
+		if (typeof Int.currentMask !== 'undefined' && Int.currentMask.showing === true) {
+			Int.currentMask.hide();
+			Int.showCollector();
+			Int.setImgMask();
+			return;
+		};
+		//Else, Go to Next Scene
 		Int.index++
+		$(Int.collectorIcon).addClass("noselect");
 		if (Int.sceneData.scroll === true) {
+			console.log("next scene scroll true");
+			// Int.collector.clear();
 			Int.setSceneData();
-			Int.setMasks();
+			Int.setMask();
+			Int.hideCollector();
+			Int.setProgress();
 			Int.setSubScene();
 			Int.scrollPageY("next");
 		} else {
+			console.log("next scene scroll false");
 			Int.setSceneData();
-			Int.setMasks();
+			Int.setImgMask();
 			Int.setSubScene();
 		}
 	};
 
-	//Previous Scene Macro
+	// //Previous Scene Macro
 	Interactive.prototype.prevScene 			= function () {
 		var Int = this;
-		Int.scrollPageY("prev");
+		// Int.scrollPageY("prev");
+		alert("BACK TO THE FUTURE!");
 	};
 
 /*
@@ -418,7 +567,7 @@ Instantiation & Initialization
 */
 
 	var interactive = new Interactive();
-		interactive.init()
+		interactive.init();
 
 /*
 Global Event Bindings
@@ -442,11 +591,20 @@ Global Event Bindings
 /*
 Item Event Bindings
 */
-
+	
+	//Item Selection
 	$(interactive.wrapper + " " + interactive.itemSelectable).on("click", function (e) {
 		var id = e.currentTarget.id;
 		interactive.selectItem(id);
 	});	
+
+/*
+Vin Vasive Bindings
+*/
+
+	$(interactive.vinvasive).on("click", function (e) {
+		interactive.dismissTerror();
+	});
 
 }(jQuery, ko, d3));
 

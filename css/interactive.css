@@ -17,13 +17,17 @@ Color Palette
 Animations
 */
 
-@-webkit-keyframes wiggle {
+@-webkit-keyframes bounce {
     0% {-webkit-transform: translate(0px, 0px);}
     25% {-webkit-transform: translate(0px, -3px);}
     50% {-webkit-transform: translate(0px, -4px);}
     75% {-webkit-transform: translate(0px, -3px);}
     100% {-webkit-transform: translate(0px, 0px);}
-
+}
+@-webkit-keyframes wiggle {
+    0% {-webkit-transform: rotateZ(3deg);}
+    50% {-webkit-transform: rotateZ(-3deg);}
+    100% {-webkit-transform: rotateZ(3deg);}
 }
 
 /*
@@ -77,8 +81,11 @@ General Styles
 	left: 0px;
 	width: 964px;
 	height: 550px;
-	opacity: .5;
+	opacity: 1;
 	display: none;
+}
+#interactive-wrapper .viewport .scenes .scene .mask {
+	z-index: 9999;
 }
 #interactive-wrapper .viewport .scenes .scene .interactive-element {
 	position: absolute;
@@ -86,211 +93,30 @@ General Styles
 	left: 0px;
 	width: 964px;
 	height: 550px;
-	z-index: 100;
+	z-index: 0;
 }
 #interactive-wrapper .viewport .scenes .scene .interactive-element .item {
 	opacity: 1;
+	-webkit-transition: opacity .6s;
+	-moz-transition: opacity .6s;
+	-ms-transition: opacity .6s;
+	-o-transition: opacity .6s;
+	transition: opacity .6s;
 }
 #interactive-wrapper .viewport .scenes .scene .interactive-element .item.selectable:hover {
 	cursor: pointer;
-	-webkit-animation-name: wiggle;
+	-webkit-animation-name: bounce;
     -webkit-animation-duration: .4s;
     -webkit-animation-iteration-count: infinite;
     -webkit-animation-timing-function: ease;
 }
 #interactive-wrapper .viewport .scenes .scene .interactive-element .item.selected {
-	/*display: none;*/
+	opacity: .7;
 }
 #interactive-wrapper .icon {
 	width: 40px;
 	height: 40px;
 }
-
-/*
-Unique Icons
-*/
-
-#interactive-wrapper .icon.oatmeal {
-	background: url('../img/elements/icons.png') 0 0;
-}
-#interactive-wrapper .icon.oatmeal.active {
-	background: url('../img/elements/icons.png') -40 0;
-}
-#interactive-wrapper .icon.sketchpad {
-	background: url('../img/elements/icons.png') 0 0;
-}
-#interactive-wrapper .icon.sketchpad.active {
-	background: url('../img/elements/icons.png') -40 0;
-}
-#interactive-wrapper .icon.flowers {
-	background: url('../img/elements/icons.png') 0 0;
-}
-#interactive-wrapper .icon.flowers.active {
-	background: url('../img/elements/icons.png') -40 0;
-}
-#interactive-wrapper .icon.hiking {
-	background: url('../img/elements/icons.png') 0 0;
-}
-#interactive-wrapper .icon.hiking.active {
-	background: url('../img/elements/icons.png') -40 0;
-}
-#interactive-wrapper .icon.treehouse {
-	background: url('../img/elements/icons.png') 0 0;
-}
-#interactive-wrapper .icon.treehouse.active {
-	background: url('../img/elements/icons.png') -40 0;
-}
-#interactive-wrapper .icon.ketchup {
-	background: url('../img/elements/icons.png') 0 0;
-}
-#interactive-wrapper .icon.ketchup.active {
-	background: url('../img/elements/icons.png') -40 0;
-}
-#interactive-wrapper .icon.apples {
-	background: url('../img/elements/icons.png') 0 0;
-}
-#interactive-wrapper .icon.apples.active {
-	background: url('../img/elements/icons.png') -40 0;
-}
-#interactive-wrapper .icon.nuts {
-	background: url('../img/elements/icons.png') 0 0;
-}
-#interactive-wrapper .icon.nuts.active {
-	background: url('../img/elements/icons.png') -40 0;
-}
-#interactive-wrapper .icon.grapes {
-	background: url('../img/elements/icons.png') 0 0;
-}
-#interactive-wrapper .icon.grapes.active {
-	background: url('../img/elements/icons.png') -40 0;
-}
-#interactive-wrapper .icon.swing {
-	background: url('../img/elements/icons.png') 0 0;
-}
-#interactive-wrapper .icon.swing.active {
-	background: url('../img/elements/icons.png') -40 0;
-}
-#interactive-wrapper .icon.ball {
-	background: url('../img/elements/icons.png') 0 0;
-}
-#interactive-wrapper .icon.ball.active {
-	background: url('../img/elements/icons.png') -40 0;
-}
-#interactive-wrapper .icon.orangejuice {
-	background: url('../img/elements/icons.png') 0 0;
-}
-#interactive-wrapper .icon.orangejuice.active {
-	background: url('../img/elements/icons.png') -40 0;
-}
-#interactive-wrapper .icon.chipsguac {
-	background: url('../img/elements/icons.png') 0 0;
-}
-#interactive-wrapper .icon.chipsguac.active {
-	background: url('../img/elements/icons.png') -40 0;
-}
-#interactive-wrapper .icon.bananas {
-	background: url('../img/elements/icons.png') 0 0;
-}
-#interactive-wrapper .icon.bananas.active {
-	background: url('../img/elements/icons.png') -40 0;
-}
-#interactive-wrapper .icon.magazines {
-	background: url('../img/elements/icons.png') 0 0;
-}
-#interactive-wrapper .icon.magazines.active {
-	background: url('../img/elements/icons.png') -40 0;
-}
-#interactive-wrapper .icon.lemonade {
-	background: url('../img/elements/icons.png') 0 0;
-}
-#interactive-wrapper .icon.lemonade.active {
-	background: url('../img/elements/icons.png') -40 0;
-}
-#interactive-wrapper .icon.corn {
-	background: url('../img/elements/icons.png') 0 0;
-}
-#interactive-wrapper .icon.corn.active {
-	background: url('../img/elements/icons.png') -40 0;
-}
-#interactive-wrapper .icon.bike {
-	background: url('../img/elements/icons.png') 0 0;
-}
-#interactive-wrapper .icon.bike.active {
-	background: url('../img/elements/icons.png') -40 0;
-}
-#interactive-wrapper .icon.macncheese {
-	background: url('../img/elements/icons.png') 0 0;
-}
-#interactive-wrapper .icon.macncheese.active {
-	background: url('../img/elements/icons.png') -40 0;
-}
-#interactive-wrapper .icon.brownies {
-	background: url('../img/elements/icons.png') 0 0;
-}
-#interactive-wrapper .icon.brownies.active {
-	background: url('../img/elements/icons.png') -40 0;
-}
-#interactive-wrapper .icon.picnic {
-	background: url('../img/elements/icons.png') 0 0;
-}
-#interactive-wrapper .icon.picnic.active {
-	background: url('../img/elements/icons.png') -40 0;
-}
-#interactive-wrapper .icon.puppy {
-	background: url('../img/elements/icons.png') 0 0;
-}
-#interactive-wrapper .icon.puppy.active {
-	background: url('../img/elements/icons.png') -40 0;
-}
-#interactive-wrapper .icon.hoodie {
-	background: url('../img/elements/icons.png') 0 0;
-}
-#interactive-wrapper .icon.hoodie.active {
-	background: url('../img/elements/icons.png') -40 0;
-}
-#interactive-wrapper .icon.books {
-	background: url('../img/elements/icons.png') 0 0;
-}
-#interactive-wrapper .icon.books.active {
-	background: url('../img/elements/icons.png') -40 0;
-}
-#interactive-wrapper .icon.peanutbutter {
-	background: url('../img/elements/icons.png') 0 0;
-}
-#interactive-wrapper .icon.peanutbutter.active {
-	background: url('../img/elements/icons.png') -40 0;
-}
-#interactive-wrapper .icon.syrup {
-	background: url('../img/elements/icons.png') 0 0;
-}
-#interactive-wrapper .icon.syrup.active {
-	background: url('../img/elements/icons.png') -40 0;
-}
-#interactive-wrapper .icon.bat {
-	background: url('../img/elements/icons.png') 0 0;
-}
-#interactive-wrapper .icon.bat.active {
-	background: url('../img/elements/icons.png') -40 0;
-}
-#interactive-wrapper .icon.applebasket {
-	background: url('../img/elements/icons.png') 0 0;
-}
-#interactive-wrapper .icon.applebasket.active {
-	background: url('../img/elements/icons.png') -40 0;
-}
-#interactive-wrapper .icon.pancakes {
-	background: url('../img/elements/icons.png') 0 0;
-}
-#interactive-wrapper .icon.pancakes.active {
-	background: url('../img/elements/icons.png') -40 0;
-}
-#interactive-wrapper .icon.raspberries {
-	background: url('../img/elements/icons.png') 0 0;
-}
-#interactive-wrapper .icon.raspberries.active {
-	background: url('../img/elements/icons.png') -40 0;
-}
-
 
 /*
 Evergreen
@@ -303,6 +129,7 @@ Evergreen
 	width: 48px;
 	height: 486px;
 	z-index: 1000;
+	display: none;
 }
 #evergreen .progress-bar .bar {
 	position: relative;
@@ -355,6 +182,271 @@ Evergreen
 	height: 486px;
 	background-image: url("../img/elements/notepad.png");
 	z-index: 1000;
+	display: none;
+}
+
+/*
+Icon Collector
+*/
+
+#icon-collector {
+	position: absolute;
+	top: 42px;
+	left: 0px;
+	width: 132px;
+	height: 432px;
+}
+#icon-collector .icons {
+	position: absolute;
+	top: 10px;
+	left: 8px;
+	width: 122px;
+	height: 412px;
+}
+#icon-collector .icons .icon {
+	float: left;
+	width: 58px;
+	height: 54px;
+	margin: 0 2px 6px 0;
+	cursor: pointer;
+	-webkit-animation-name: wiggle;
+    -webkit-animation-duration: .4s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: ease;
+}
+#icon-collector .icons .icon.noselect {
+	cursor: default;
+	opacity: .9;
+}
+#icon-collector .icons .icon.noselect .circle {
+	stroke-width: 0px;
+}
+
+/*
+Icon Collector - Unique Icons
+*/
+
+#evergreen .icon.orangejuice {
+	background: url('../img/elements/icons-collector.png') 0 0;
+}
+#evergreen .icon.pancakes {
+	background: url('../img/elements/icons-collector.png') 0 -54px;
+}
+#evergreen .icon.bananas {
+	background: url('../img/elements/icons-collector.png') 0 -108px;
+}
+#evergreen .icon.apples {
+	background: url('../img/elements/icons-collector.png') 0 -162px;
+}
+#evergreen .icon.peanutbutter {
+	background: url('../img/elements/icons-collector.png') 0 -216px;
+}
+#evergreen .icon.corn {
+	background: url('../img/elements/icons-collector.png') 0 -270px;
+}
+#evergreen .icon.nuts {
+	background: url('../img/elements/icons-collector.png') 0 -324px;
+}
+#evergreen .icon.macncheese {
+	background: url('../img/elements/icons-collector.png') 0 -378px;
+}
+#evergreen .icon.sketchpad {
+	background: url('../img/elements/icons-collector.png') 0 -432px;
+}
+#evergreen .icon.puppy {
+	background: url('../img/elements/icons-collector.png') 0 -486px;
+}
+#evergreen .icon.magazines {
+	background: url('../img/elements/icons-collector.png') 0 -540px;
+}
+#evergreen .icon.flowers {
+	background: url('../img/elements/icons-collector.png') 0 -594px;
+}
+#evergreen .icon.bike {
+	background: url('../img/elements/icons-collector.png') 0 -648px;
+}
+#evergreen .icon.swing {
+	background: url('../img/elements/icons-collector.png') 0 -702px;
+}
+#evergreen .icon.hiking {
+	background: url('../img/elements/icons-collector.png') 0 -756px;
+}
+#evergreen .icon.oatmeal {
+	background: url('../img/elements/icons-collector.png') -54px 0;
+}
+#evergreen .icon.raspberries {
+	background: url('../img/elements/icons-collector.png') -54px -54px;
+}
+#evergreen .icon.syrup {
+	background: url('../img/elements/icons-collector.png') -54px -108px;
+}
+#evergreen .icon.ketchup {
+	background: url('../img/elements/icons-collector.png') -54px -162px;
+}
+#evergreen .icon.lemonade {
+	background: url('../img/elements/icons-collector.png') -54px -216px;
+}
+#evergreen .icon.chipsguac {
+	background: url('../img/elements/icons-collector.png') -54px -270px;
+}
+#evergreen .icon.grapes {
+	background: url('../img/elements/icons-collector.png') -54px -324px;
+}
+#evergreen .icon.brownies {
+	background: url('../img/elements/icons-collector.png') -54px -378px;
+}
+#evergreen .icon.hoodie {
+	background: url('../img/elements/icons-collector.png') -54px -432px;
+}
+#evergreen .icon.ball {
+	background: url('../img/elements/icons-collector.png') -54px -486px;
+}
+#evergreen .icon.bat {
+	background: url('../img/elements/icons-collector.png') -54px -540px;
+}
+#evergreen .icon.applebasket {
+	background: url('../img/elements/icons-collector.png') -54px -594px;
+}
+#evergreen .icon.picnic {
+	background: url('../img/elements/icons-collector.png') -54px -648px;
+}
+#evergreen .icon.treehouse {
+	background: url('../img/elements/icons-collector.png') -54px -702px;
+}
+#evergreen .icon.books {
+	background: url('../img/elements/icons-collector.png') -54px -756px;
+}
+
+/*
+Quiz
+*/
+
+#quiz {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 964px;
+	height: 550px;
+	z-index: 500;
+	display: none;
+}
+#quiz .quiz {
+	position: absolute;
+	top: 40px;
+	left: 400px;
+	width: 240px;
+}
+#quiz .quiz .quiz-body {
+	position: relative;
+	top: 0px;
+	left: 0px;
+	width: 220px;
+	padding: 0 10px;
+	background-color: #FFFFFF;
+}
+#quiz .quiz .quiz-body .header {
+	position: relative;
+	top: 0px;
+	left: 0px;
+	width: 220px;
+	height: 42px;
+	font-size: 24px;
+	line-height: 42px;
+	color: #505657;
+	border-bottom: 2px solid #9B2A14;
+}
+#quiz .quiz .quiz-body .question {
+	position: relative;
+	top: 0px;
+	left: 0px;
+	width: 220px;
+	padding: 10px 0;
+	color: #505657;
+	font-size: 12px;
+	line-height: 16px;
+	border-bottom: 1px solid #ACA99C;
+}
+#quiz .quiz .quiz-body .answer {
+	position: relative;
+	top: 0px;
+	left: 0px;
+	width: 220px;
+	padding: 8px 0;
+	color: #505657;
+	font-size: 12px;
+	line-height: 16px;
+	border-bottom: 1px solid #ACA99C;
+	cursor: pointer;
+}
+#quiz .quiz .quiz-body .answer:last-child {
+	border: none;
+}
+#quiz .quiz .quiz-body .answer .red {
+	color: #9B2A14;
+	font-size: 16px;
+	line-height: 16px;
+	margin-right: 8px;
+}
+#quiz .quiz .result {
+	position: relative;
+	top: 0px;
+	left: 0px;
+	width: 220px;
+	padding: 10px;
+	background-color: #9B2A14;
+	color: #FFFFFF;
+	font-size: 12px;
+	line-height: 16px;
+}
+#quiz .quiz .exit {
+	position: relative;
+	top: 0px;
+	left: 0px;
+	width: 220px;
+	padding: 0 10px 10px 10px;
+	font-size: 12px;
+	line-height: 16px;
+	color: #FFFFFF;
+	background-color: #9B2A14;
+	-webkit-transition: all 0.6s;
+	transition: all 0.6s;
+	cursor: pointer;
+}
+#quiz .quiz .exit:hover {
+	color: #505657;
+}
+
+/*
+Vin Vasive
+*/
+
+#vinvasive {
+	position: absolute;
+	bottom: 0px;
+	left: 0px;
+	width: 964px;
+	height: 550px;
+	z-index: 500;
+	cursor: pointer;
+	display: none;
+}
+#vinvasive .vinvasive-1, #vinvasive .vinvasive-2 {
+	position: absolute;
+	bottom: 0px;
+	left: 0px;
+	width: 329px;
+	height: 329px;
+	display: none;
+}
+#vinvasive .evil-words {
+	position: absolute;
+	top: 24px;
+	left: 136px;
+	width: 132px;
+	height: 48px;
+	font-size: 12px;
+	line-height: 16px;
+	color: #FFFFFF;
 }
 
 /*
@@ -419,4 +511,189 @@ Final
 	position: absolute;
 	width: 964px;
 	height: 550px;
+}
+
+/*
+Final - Unique Icons
+*/
+
+#final .icon.oatmeal {
+	background: url('../img/elements/icons.png') 0 0;
+}
+#final .icon.oatmeal.active {
+	background: url('../img/elements/icons.png') -40 0;
+}
+#final .icon.sketchpad {
+	background: url('../img/elements/icons.png') 0 0;
+}
+#final .icon.sketchpad.active {
+	background: url('../img/elements/icons.png') -40 0;
+}
+#final .icon.flowers {
+	background: url('../img/elements/icons.png') 0 0;
+}
+#final .icon.flowers.active {
+	background: url('../img/elements/icons.png') -40 0;
+}
+#final .icon.hiking {
+	background: url('../img/elements/icons.png') 0 0;
+}
+#final .icon.hiking.active {
+	background: url('../img/elements/icons.png') -40 0;
+}
+#final .icon.treehouse {
+	background: url('../img/elements/icons.png') 0 0;
+}
+#final .icon.treehouse.active {
+	background: url('../img/elements/icons.png') -40 0;
+}
+#final .icon.ketchup {
+	background: url('../img/elements/icons.png') 0 0;
+}
+#final .icon.ketchup.active {
+	background: url('../img/elements/icons.png') -40 0;
+}
+#final .icon.apples {
+	background: url('../img/elements/icons.png') 0 0;
+}
+#final .icon.apples.active {
+	background: url('../img/elements/icons.png') -40 0;
+}
+#final .icon.nuts {
+	background: url('../img/elements/icons.png') 0 0;
+}
+#final .icon.nuts.active {
+	background: url('../img/elements/icons.png') -40 0;
+}
+#final .icon.grapes {
+	background: url('../img/elements/icons.png') 0 0;
+}
+#final .icon.grapes.active {
+	background: url('../img/elements/icons.png') -40 0;
+}
+#final .icon.swing {
+	background: url('../img/elements/icons.png') 0 0;
+}
+#final .icon.swing.active {
+	background: url('../img/elements/icons.png') -40 0;
+}
+#final .icon.ball {
+	background: url('../img/elements/icons.png') 0 0;
+}
+#final .icon.ball.active {
+	background: url('../img/elements/icons.png') -40 0;
+}
+#final .icon.orangejuice {
+	background: url('../img/elements/icons.png') 0 0;
+}
+#final .icon.orangejuice.active {
+	background: url('../img/elements/icons.png') -40 0;
+}
+#final .icon.chipsguac {
+	background: url('../img/elements/icons.png') 0 0;
+}
+#final .icon.chipsguac.active {
+	background: url('../img/elements/icons.png') -40 0;
+}
+#final .icon.bananas {
+	background: url('../img/elements/icons.png') 0 0;
+}
+#final .icon.bananas.active {
+	background: url('../img/elements/icons.png') -40 0;
+}
+#final .icon.magazines {
+	background: url('../img/elements/icons.png') 0 0;
+}
+#final .icon.magazines.active {
+	background: url('../img/elements/icons.png') -40 0;
+}
+#final .icon.lemonade {
+	background: url('../img/elements/icons.png') 0 0;
+}
+#final .icon.lemonade.active {
+	background: url('../img/elements/icons.png') -40 0;
+}
+#final.icon.corn {
+	background: url('../img/elements/icons.png') 0 0;
+}
+#final .icon.corn.active {
+	background: url('../img/elements/icons.png') -40 0;
+}
+#final .icon.bike {
+	background: url('../img/elements/icons.png') 0 0;
+}
+#final .icon.bike.active {
+	background: url('../img/elements/icons.png') -40 0;
+}
+#final .icon.macncheese {
+	background: url('../img/elements/icons.png') 0 0;
+}
+#final .icon.macncheese.active {
+	background: url('../img/elements/icons.png') -40 0;
+}
+#final .icon.brownies {
+	background: url('../img/elements/icons.png') 0 0;
+}
+#final .icon.brownies.active {
+	background: url('../img/elements/icons.png') -40 0;
+}
+#final .icon.picnic {
+	background: url('../img/elements/icons.png') 0 0;
+}
+#final .icon.picnic.active {
+	background: url('../img/elements/icons.png') -40 0;
+}
+#final .icon.puppy {
+	background: url('../img/elements/icons.png') 0 0;
+}
+#final .icon.puppy.active {
+	background: url('../img/elements/icons.png') -40 0;
+}
+#final .icon.hoodie {
+	background: url('../img/elements/icons.png') 0 0;
+}
+#final .icon.hoodie.active {
+	background: url('../img/elements/icons.png') -40 0;
+}
+#final .icon.books {
+	background: url('../img/elements/icons.png') 0 0;
+}
+#final .icon.books.active {
+	background: url('../img/elements/icons.png') -40 0;
+}
+#final .icon.peanutbutter {
+	background: url('../img/elements/icons.png') 0 0;
+}
+#final .icon.peanutbutter.active {
+	background: url('../img/elements/icons.png') -40 0;
+}
+#final .icon.syrup {
+	background: url('../img/elements/icons.png') 0 0;
+}
+#final .icon.syrup.active {
+	background: url('../img/elements/icons.png') -40 0;
+}
+#final .icon.bat {
+	background: url('../img/elements/icons.png') 0 0;
+}
+#final .icon.bat.active {
+	background: url('../img/elements/icons.png') -40 0;
+}
+#final .icon.applebasket {
+	background: url('../img/elements/icons.png') 0 0;
+}
+#final .icon.applebasket.active {
+	background: url('../img/elements/icons.png') -40 0;
+}
+#final .icon.pancakes {
+	background: url('../img/elements/icons.png') 0 0;
+}
+#final .icon.pancakes.active {
+	background: url('../img/elements/icons.png') -40 0;
+}
+#final .icon.raspberries {
+	background: url('../img/elements/icons.png') 0 0;
+}
+#final .icon.raspberries.active {
+	background: url('../img/elements/icons.png') -40 0;
 }
