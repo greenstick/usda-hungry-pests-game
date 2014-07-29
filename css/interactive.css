@@ -10,7 +10,13 @@ Color Palette
 	color: rgba(229, 196, 57, 1);
 }
 .frst {
-	color:rgba(0, 91, 38, 1) ;
+	color: rgba(0, 91, 38, 1) ;
+}
+.mgta {
+	color: rgba(241, 71, 94, 1);
+}
+.aqua {
+	color: rgba(25, 158, 147, 1);
 }
 
 /*
@@ -39,7 +45,7 @@ General Styles
 	width: 964px;
 	height: 550px;
 	margin: 0 auto;
-	overflow: hidden;
+	/*overflow: hidden;*/
 	color: #FFFFFF;
 	font-family: 'Montserrat', sans-serif;
 }
@@ -52,7 +58,7 @@ General Styles
 	left: 0px;
 	width: 964px;
 	height: 550px;
-	overflow: hidden;
+	/*overflow: hidden;*/
 }
 #interactive-wrapper .viewport .scenes {
 	position: absolute;
@@ -86,6 +92,7 @@ General Styles
 }
 #interactive-wrapper .viewport .scenes .scene .mask {
 	z-index: 9999;
+	cursor: pointer;
 }
 #interactive-wrapper .viewport .scenes .scene .interactive-element {
 	position: absolute;
@@ -122,7 +129,22 @@ General Styles
 Evergreen
 */
 
-#evergreen .progress-bar {
+#evergreen .notepad {
+	position: absolute;
+	top: -3px;
+	right: 20px;
+	width: 132px;
+	height: 486px;
+	background-image: url("../img/elements/notepad.png");
+	z-index: 1000;
+	display: none;
+}
+
+/*
+Progress Bar
+*/
+
+#progress-bar {
 	position: absolute;
 	top: 0px;
 	left: 8px;
@@ -131,13 +153,13 @@ Evergreen
 	z-index: 1000;
 	display: none;
 }
-#evergreen .progress-bar .bar {
+#progress-bar .bar {
 	position: relative;
 	width: 48px;
 	height: 120px;
 	margin: 4px 0;
 }
-#evergreen .progress-bar .bar .bar-stem {
+#progress-bar .bar .bar-stem {
 	position: absolute;
 	top: 0px;
 	left: 0px;
@@ -146,7 +168,7 @@ Evergreen
 	padding: 8px 0;
 	background-color: rgba(42, 255, 121, .9);
 }
-#evergreen .progress-bar .bar .bar-stem .inner {
+#progress-bar .bar .bar-stem .inner {
 	position: absolute;
 	top: 8px;
 	left: 4px;
@@ -154,7 +176,7 @@ Evergreen
 	height: 104px;
 	background-color: rgba(186, 216, 76, .5);
 }
-#evergreen .progress-bar .bar .bar-leaf {
+#progress-bar .bar .bar-leaf {
 	position: absolute;
 	top: 42px;
 	left: 12px;
@@ -168,21 +190,11 @@ Evergreen
 	text-align: center;
 	cursor: pointer;
 }
-#evergreen .progress-bar .bar.complete .bar-stem {
+#progress-bar .bar.complete .bar-stem {
 	background-color: rgba(90, 117, 45, .9);
 }
-#evergreen .progress-bar .bar.complete .bar-stem .inner {
+#progress-bar .bar.complete .bar-stem .inner {
 	background-color: rgba(68, 89, 28, .5);
-}
-#evergreen .notepad {
-	position: absolute;
-	top: -3px;
-	right: 20px;
-	width: 132px;
-	height: 486px;
-	background-image: url("../img/elements/notepad.png");
-	z-index: 1000;
-	display: none;
 }
 
 /*
@@ -511,6 +523,61 @@ Final
 	position: absolute;
 	width: 964px;
 	height: 550px;
+	color: #505657;
+}
+#final .all-icons {
+	position: absolute;
+	top: 72px;
+	width: 960px;
+	height: 288px
+}
+#final .all-icons .icon {
+	position: absolute;
+	width: 96px;
+	height: 96px;
+	opactiy: 0;
+}
+#final .all-icons .icon.active {
+	opacity: 1;
+}
+#final .cta-1 {
+	display: block;
+}
+#final .cta-2 {
+	display: none;
+}
+#final .cta-1 .cta-head, #final .cta-2 .cta-head {
+	position: absolute;
+	top: 376px;
+	left: 0px;
+	width: 920px;
+	height: 96px;
+	padding: 12px 20px;
+	font-size: 32px;
+	line-height: 48px;
+}
+#final .cta-3 {
+	display: none;
+}
+#final .cta-3 .cta-head {
+	position: absolute;
+	top: 376px;
+	left: 0px;
+	width: 920px;
+	height: 48px;
+	padding: 12px 20px;
+	font-size: 28px;
+	line-height: 48px;
+}
+#final .cta-3 .cta-body {
+	position: absolute;
+	top: 440px;
+	left: 0px;
+	width: 920px;
+	height: 40px;
+	padding: 8px 20px;
+	font-size: 16px;
+	line-height: 20px;
 }
 
 /*
@@ -518,182 +585,242 @@ Final - Unique Icons
 */
 
 #final .icon.oatmeal {
+	top: 0px;
+	left: 0px;
 	background: url('../img/elements/icons.png') 0 0;
 }
-#final .icon.oatmeal.active {
-	background: url('../img/elements/icons.png') -40 0;
+#final .icon.oatmeal.inactive {
+	background: url('../img/elements/icons.png') -96px 0;
 }
 #final .icon.sketchpad {
-	background: url('../img/elements/icons.png') 0 0;
+	top: 0px;
+	left: 96px;
+	background: url('../img/elements/icons.png') -192px 0;
 }
-#final .icon.sketchpad.active {
-	background: url('../img/elements/icons.png') -40 0;
+#final .icon.sketchpad.inactive {
+	background: url('../img/elements/icons.png') -288px 0;
 }
 #final .icon.flowers {
-	background: url('../img/elements/icons.png') 0 0;
+	top: 0px;
+	left: 192px;
+	background: url('../img/elements/icons.png') -384px 0;
 }
-#final .icon.flowers.active {
-	background: url('../img/elements/icons.png') -40 0;
+#final .icon.flowers.inactive {
+	background: url('../img/elements/icons.png') -480px 0;
 }
 #final .icon.hiking {
-	background: url('../img/elements/icons.png') 0 0;
+	top: 0px;
+	left: 288px;
+	background: url('../img/elements/icons.png') -576px 0;
 }
-#final .icon.hiking.active {
-	background: url('../img/elements/icons.png') -40 0;
+#final .icon.hiking.inactive {
+	background: url('../img/elements/icons.png') -672px 0;
 }
 #final .icon.treehouse {
-	background: url('../img/elements/icons.png') 0 0;
+	top: 0px;
+	left: 384px;
+	background: url('../img/elements/icons.png') -768px 0;
 }
-#final .icon.treehouse.active {
-	background: url('../img/elements/icons.png') -40 0;
+#final .icon.treehouse.inactive {
+	background: url('../img/elements/icons.png') -864px 0;
 }
 #final .icon.ketchup {
-	background: url('../img/elements/icons.png') 0 0;
+	top: 0px;
+	left: 480px;
+	background: url('../img/elements/icons.png') -960px 0;
 }
-#final .icon.ketchup.active {
-	background: url('../img/elements/icons.png') -40 0;
+#final .icon.ketchup.inactive {
+	background: url('../img/elements/icons.png') -1056px 0;
 }
 #final .icon.apples {
-	background: url('../img/elements/icons.png') 0 0;
+	top: 0px;
+	left: 576px;
+	background: url('../img/elements/icons.png') -1152px 0;
 }
-#final .icon.apples.active {
-	background: url('../img/elements/icons.png') -40 0;
+#final .icon.apples.inactive {
+	background: url('../img/elements/icons.png') -1248px 0;
 }
 #final .icon.nuts {
-	background: url('../img/elements/icons.png') 0 0;
+	top: 0px;
+	left: 672px;
+	background: url('../img/elements/icons.png') -1344px 0;
 }
-#final .icon.nuts.active {
-	background: url('../img/elements/icons.png') -40 0;
+#final .icon.nuts.inactive {
+	background: url('../img/elements/icons.png') -1440px 0;
 }
 #final .icon.grapes {
-	background: url('../img/elements/icons.png') 0 0;
+	top: 0px;
+	left: 768px;
+	background: url('../img/elements/icons.png') -1536px 0;
 }
-#final .icon.grapes.active {
-	background: url('../img/elements/icons.png') -40 0;
+#final .icon.grapes.inactive {
+	background: url('../img/elements/icons.png') -1632px 0;
 }
 #final .icon.swing {
-	background: url('../img/elements/icons.png') 0 0;
+	top: 0px;
+	left: 864px;
+	background: url('../img/elements/icons.png') -1728px 0;
 }
-#final .icon.swing.active {
-	background: url('../img/elements/icons.png') -40 0;
+#final .icon.swing.inactive {
+	background: url('../img/elements/icons.png') -1824px 0;
 }
 #final .icon.ball {
-	background: url('../img/elements/icons.png') 0 0;
+	top: 96px;
+	left: 0px;
+	background: url('../img/elements/icons.png') 0px -96px;
 }
-#final .icon.ball.active {
-	background: url('../img/elements/icons.png') -40 0;
+#final .icon.ball.inactive {
+	background: url('../img/elements/icons.png') -96px -96px;
 }
 #final .icon.orangejuice {
-	background: url('../img/elements/icons.png') 0 0;
+	top: 96px;
+	left: 96px;
+	background: url('../img/elements/icons.png') -192px -96px;
 }
-#final .icon.orangejuice.active {
-	background: url('../img/elements/icons.png') -40 0;
+#final .icon.orangejuice.inactive {
+	background: url('../img/elements/icons.png') -288px -96px;
 }
-#final .icon.chipsguac {
-	background: url('../img/elements/icons.png') 0 0;
+#final .icon.chipsnguac {
+	top: 96px;
+	left: 192px;
+	background: url('../img/elements/icons.png') -384px -96px;
 }
-#final .icon.chipsguac.active {
-	background: url('../img/elements/icons.png') -40 0;
+#final .icon.chipsnguac.inactive {
+	background: url('../img/elements/icons.png') -480px -96px;
 }
 #final .icon.bananas {
-	background: url('../img/elements/icons.png') 0 0;
+	top: 96px;
+	left: 288px;
+	background: url('../img/elements/icons.png') -576px -96px;
 }
-#final .icon.bananas.active {
-	background: url('../img/elements/icons.png') -40 0;
+#final .icon.bananas.inactive {
+	background: url('../img/elements/icons.png') -672px -96px;
 }
 #final .icon.magazines {
-	background: url('../img/elements/icons.png') 0 0;
+	top: 96px;
+	left: 384px;
+	background: url('../img/elements/icons.png') -768px -96px;
 }
-#final .icon.magazines.active {
-	background: url('../img/elements/icons.png') -40 0;
+#final .icon.magazines.inactive {
+	background: url('../img/elements/icons.png') -864px -96px;
 }
 #final .icon.lemonade {
-	background: url('../img/elements/icons.png') 0 0;
+	top: 96px;
+	left: 480px;
+	background: url('../img/elements/icons.png') -960px -96px;
 }
-#final .icon.lemonade.active {
-	background: url('../img/elements/icons.png') -40 0;
+#final .icon.lemonade.inactive {
+	background: url('../img/elements/icons.png') -1056px -96px;
 }
-#final.icon.corn {
-	background: url('../img/elements/icons.png') 0 0;
+#final .icon.corn {
+	top: 96px;
+	left: 576px;
+	background: url('../img/elements/icons.png') -1152px -96px;
 }
-#final .icon.corn.active {
-	background: url('../img/elements/icons.png') -40 0;
+#final .icon.corn.inactive {
+	background: url('../img/elements/icons.png') -1248px -96px;
 }
 #final .icon.bike {
-	background: url('../img/elements/icons.png') 0 0;
+	top: 96px;
+	left: 672px;
+	background: url('../img/elements/icons.png') -1344px -96px;
 }
-#final .icon.bike.active {
-	background: url('../img/elements/icons.png') -40 0;
+#final .icon.bike.inactive {
+	background: url('../img/elements/icons.png') -1440px -96px;
 }
 #final .icon.macncheese {
-	background: url('../img/elements/icons.png') 0 0;
+	top: 96px;
+	left: 768px;
+	background: url('../img/elements/icons.png') -1536px -96px;
 }
-#final .icon.macncheese.active {
-	background: url('../img/elements/icons.png') -40 0;
+#final .icon.macncheese.inactive {
+	background: url('../img/elements/icons.png') -1632px -96px;
 }
 #final .icon.brownies {
-	background: url('../img/elements/icons.png') 0 0;
+	top: 96px;
+	left: 864px;
+	background: url('../img/elements/icons.png') -1728px -96px;
 }
-#final .icon.brownies.active {
-	background: url('../img/elements/icons.png') -40 0;
+#final .icon.brownies.inactive {
+	background: url('../img/elements/icons.png') -1824px -96px;
 }
 #final .icon.picnic {
-	background: url('../img/elements/icons.png') 0 0;
+	top: 192px;
+	left: 0px;
+	background: url('../img/elements/icons.png') 0 -192px;
 }
-#final .icon.picnic.active {
-	background: url('../img/elements/icons.png') -40 0;
+#final .icon.picnic.inactive {
+	background: url('../img/elements/icons.png') -96px -192px;
 }
 #final .icon.puppy {
-	background: url('../img/elements/icons.png') 0 0;
+	top: 192px;
+	left: 96px;
+	background: url('../img/elements/icons.png') -192px -192px;
 }
-#final .icon.puppy.active {
-	background: url('../img/elements/icons.png') -40 0;
+#final .icon.puppy.inactive {
+	background: url('../img/elements/icons.png') -288px -192px;
 }
 #final .icon.hoodie {
-	background: url('../img/elements/icons.png') 0 0;
+	top: 192px;
+	left: 192px;
+	background: url('../img/elements/icons.png') -384px -192px;
 }
-#final .icon.hoodie.active {
-	background: url('../img/elements/icons.png') -40 0;
+#final .icon.hoodie.inactive {
+	background: url('../img/elements/icons.png') -480px -192px;
 }
 #final .icon.books {
-	background: url('../img/elements/icons.png') 0 0;
+	top: 192px;
+	left: 288px;
+	background: url('../img/elements/icons.png') -576px -192px;
 }
-#final .icon.books.active {
-	background: url('../img/elements/icons.png') -40 0;
+#final .icon.books.inactive {
+	background: url('../img/elements/icons.png') -672px -192px;
 }
 #final .icon.peanutbutter {
-	background: url('../img/elements/icons.png') 0 0;
+	top: 192px;
+	left: 384px;
+	background: url('../img/elements/icons.png') -768px -192px;
 }
-#final .icon.peanutbutter.active {
-	background: url('../img/elements/icons.png') -40 0;
+#final .icon.peanutbutter.inactive {
+	background: url('../img/elements/icons.png') -864px -192px;
 }
 #final .icon.syrup {
-	background: url('../img/elements/icons.png') 0 0;
+	top: 192px;
+	left: 480px;
+	background: url('../img/elements/icons.png') -960px -192px;
 }
-#final .icon.syrup.active {
-	background: url('../img/elements/icons.png') -40 0;
+#final .icon.syrup.inactive {
+	background: url('../img/elements/icons.png') -1056px -192px;
 }
 #final .icon.bat {
-	background: url('../img/elements/icons.png') 0 0;
+	top: 192px;
+	left: 576px;
+	background: url('../img/elements/icons.png') -1152px -192px;
 }
-#final .icon.bat.active {
-	background: url('../img/elements/icons.png') -40 0;
+#final .icon.bat.inactive {
+	background: url('../img/elements/icons.png') -1248px -192px;
 }
 #final .icon.applebasket {
-	background: url('../img/elements/icons.png') 0 0;
+	top: 192px;
+	left: 672px;
+	background: url('../img/elements/icons.png') -1344px -192px;
 }
-#final .icon.applebasket.active {
-	background: url('../img/elements/icons.png') -40 0;
+#final .icon.applebasket.inactive {
+	background: url('../img/elements/icons.png') -1440px -192px;
 }
 #final .icon.pancakes {
-	background: url('../img/elements/icons.png') 0 0;
+	top: 192px;
+	left: 768px;
+	background: url('../img/elements/icons.png') -1536px -192px;
 }
-#final .icon.pancakes.active {
-	background: url('../img/elements/icons.png') -40 0;
+#final .icon.pancakes.inactive {
+	background: url('../img/elements/icons.png') -1632px -192px;
 }
 #final .icon.raspberries {
-	background: url('../img/elements/icons.png') 0 0;
+	top: 192px;
+	left: 864px;
+	background: url('../img/elements/icons.png') -1728px -192px;
 }
-#final .icon.raspberries.active {
-	background: url('../img/elements/icons.png') -40 0;
+#final .icon.raspberries.inactive {
+	background: url('../img/elements/icons.png') -1824px -192px;
 }

@@ -20,6 +20,42 @@
     {
         "index": 2,
         "scene": "kitchen",
+        "sub": false,
+        "limit": false,
+        "scroll": false,
+        "collector": {
+            "display": false,
+            "init": false,
+            "reset": false
+        },
+        "progress": {
+            "display": false
+        },
+        "mask": "kitchen-mask-1",
+        "imgMask": false,
+        "item": false
+    },
+    {
+        "index": 3,
+        "scene": "kitchen",
+        "sub": false,
+        "limit": false,
+        "scroll": false,
+        "collector": {
+            "display": false,
+            "init": false,
+            "reset": false
+        },
+        "progress": {
+            "display": false
+        },
+        "mask": "kitchen-mask-2",
+        "imgMask": false,
+        "item": false
+    },
+    {
+        "index": 4,
+        "scene": "kitchen",
         "sub": "fridge",
         "limit": 3,
         "scroll": false,
@@ -31,7 +67,7 @@
         "progress": {
             "display": true
         },
-        "mask": true,
+        "mask": false,
         "imgMask": true,
         "item": [
             {
@@ -142,7 +178,7 @@
         ]
     },
     {
-        "index": 3,
+        "index": 5,
         "scene": "kitchen",
         "sub": "table",
         "limit": 3,
@@ -233,7 +269,7 @@
         ]
     },
     {
-        "index": 4,
+        "index": 6,
         "scene": "kitchen",
         "sub": "cupboard",
         "limit": 2,
@@ -314,7 +350,25 @@
         ]
     },
     {
-        "index": 5,
+        "index": 7,
+        "scene": "garage",
+        "sub": false,
+        "limit": false,
+        "scroll": false,
+        "collector": {
+            "display": false,
+            "init": false,
+            "reset": false
+        },
+        "progress": {
+            "display": false
+        },
+        "mask": "garage-mask-1",
+        "imgMask": false,
+        "item": false
+    },
+    {
+        "index": 8,
         "scene": "garage",
         "sub": false,
         "limit": 3,
@@ -327,7 +381,7 @@
         "progress": {
             "display": true
         },
-        "mask": true,
+        "mask": false,
         "imgMask": false,
         "item": [
             {
@@ -438,7 +492,43 @@
         ]
     },
     {
-        "index": 6,
+        "index": 9,
+        "scene": "outdoors",
+        "sub": false,
+        "limit": false,
+        "scroll": false,
+        "collector": {
+            "display": false,
+            "init": false,
+            "reset": false
+        },
+        "progress": {
+            "display": false
+        },
+        "mask": "outdoors-mask-1",
+        "imgMask": false,
+        "item": false
+    },
+        {
+        "index": 10,
+        "scene": "outdoors",
+        "sub": false,
+        "limit": false,
+        "scroll": false,
+        "collector": {
+            "display": false,
+            "init": false,
+            "reset": false
+        },
+        "progress": {
+            "display": false
+        },
+        "mask": "outdoors-mask-2",
+        "imgMask": false,
+        "item": false
+    },
+    {
+        "index": 11,
         "scene": "outdoors",
         "sub": false,
         "limit": 3,
@@ -451,7 +541,7 @@
         "progress": {
             "display": true
         },
-        "mask": true,
+        "mask": false,
         "imgMask": false,
         "item": [
             {
@@ -591,7 +681,7 @@
         ]
     },
     {
-        "index": 7,
+        "index": 12,
         "scene": "final",
         "sub": false,
         "limit": false,

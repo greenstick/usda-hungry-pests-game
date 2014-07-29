@@ -37,6 +37,8 @@ Interactive Parent
 			Int.quizExit 			= '#quiz .exit',
 			Int.vinvasive 			= '#vinvasive',
 			Int.terrifyingComment 	= '#vinvasive .evil-words',
+			Int.maskIndex 			= 1,
+			Int.currentMask 		= false,
 			Int.activeQuizItem,
 			Int.activeTerror,
 			Int.sceneData,
@@ -44,7 +46,6 @@ Interactive Parent
 			Int.collector,
 			Int.progressBar,
 			Int.quiz,
-			Int.currentMask,
 			Int.currentImgMask,
 			Int.currentScene,
 			Int.lastScene,
@@ -150,8 +151,8 @@ Constructors
 	Interactive.prototype._Quiz_ 				= function (args) {
 		var quiz 				= this;
 			quiz.parent 		= args.parent,
-			quiz.question 		= ko.observable(args.question),
-			quiz.answer 		= ko.observableArray(args.answer),
+			quiz.question 		= ko.observable(),
+			quiz.answer 		= ko.observableArray([]),
 			quiz.result 		= ko.observable(),
 
 		/*
@@ -330,11 +331,7 @@ Interactive Item Handling
 	//Item Selection
 	Interactive.prototype.selectItem 			= function (id) {
 		var Int = this;
-		console.log("select item called");
-		// console.log(Int.itemCount);
-		// console.log(Int.sceneData.limit);
 		if (Int.itemCount === Int.sceneData.limit) return;
-		console.log("selecting item");
 		if (Int.currentImgMask.showing === true) Int.currentImgMask.hide();
 		d3.select('#' + id).classed('selectable', false).classed('selected', true);
 		if (Int.items[id].vin.element !== false) {
@@ -353,7 +350,6 @@ Interactive Item Handling
 	//Item Deselection
 	Interactive.prototype.deselectItem 			= function (id, e) {
 		var Int = interactive;
-		console.log($(Int.collectorIcon + "." + id));
 		if ($(Int.collectorIcon + "." + id).hasClass('noselect')) return;
 		Int.collector.remove(id);
 		d3.select("#" + id).classed('selected', false).classed('selectable', true);
@@ -371,7 +367,6 @@ Interactive Quiz & Vin Vasive
 		$(Int.vinvasive).fadeIn();
 		$(Int.wrapper + ' .' + Int.items[id].vin.element).fadeIn();
 		Int.activeTerror = id;
-		console.log($(Int.wrapper + ' .' + Int.items[id].vin.element));
 	};
 
 	//Make Him Go Away
@@ -436,15 +431,17 @@ Mask Handling
 	Interactive.prototype.setMask 				= function () {
 		var Int = this;
 		console.log("setting mask");
-		if (Int.sceneData.mask === true) {
-			var prefix = (Int.sceneData.sub !== false) ? '#' + Int.sceneData.sub : '#' + Int.sceneData.scene,
-			mask = new Int._Mask_({
-				element 	: prefix + ' .mask',
-				close 		: prefix + ' .mask .dismiss'
-			});
-			mask.show();
-			Int.currentMask = mask;
-		};
+		var prefix = '#' + Int.sceneData.scene,
+		mask = new Int._Mask_({
+			element 	: prefix + '-mask-' + Int.maskIndex,
+			close 		: prefix + '-mask-' + Int.maskIndex + ' .dismiss'
+		});
+		console.log(mask.element);
+		if (Int.currentMask !== false) Int.currentMask.hide();
+		mask.show();
+		Int.currentMask = mask;
+		Int.maskIndex++
+		console.log(Int.currentMask);
 	};
 
 	//Set Image Mask
@@ -481,6 +478,7 @@ Interactive Scene Handling
 			}
 		}
 		Int.itemCount = 0;
+		console.log(Int.sceneData);
 		return Int.sceneData;
 	};
 
@@ -509,7 +507,6 @@ Interactive Global Macro Methods
 	Interactive.prototype.init 					= function () {
 		var Int = this;
 		Int.getData(function () {
-			console.log(Int.data);
 			Int.detectMobile();
 			Int.bindScroll();
 			Int.initItems();
@@ -517,10 +514,10 @@ Interactive Global Macro Methods
 			//Initialize Item Collector
 			Int.collector = new Int._ItemCollector_({element: '#item-collector', ui: '.notepad'});
 			//Initialize Progress Bar
-
+			Int.progressBar = new Int._ProgressBar_({element: '#progress-bar'});
 			//Initialize Quiz
-			Int.quiz = new Int._Quiz_({parent: Int, question: '', answer: []});
-
+			Int.quiz = new Int._Quiz_({parent: Int});
+			//Apply Bindings
 			ko.applyBindings(interactive, document.getElementById('interactive-wrapper'));
 		});
 	};
@@ -528,30 +525,34 @@ Interactive Global Macro Methods
 	//Next Scene Macro
 	Interactive.prototype.nextScene 			= function () {
 		var Int = this;
-		//If Mask is Showing, Fade It Out
-		if (typeof Int.currentMask !== 'undefined' && Int.currentMask.showing === true) {
+		console.log("scene data imgmask: " + Int.sceneData.imgMask);
+		if (Int.sceneData.scroll === true) {
+			Int.scrollPageY("next");
+			Int.hideCollector();
+		}
+		Int.index++
+		Int.setSceneData();
+		$(Int.collectorIcon).addClass("noselect");
+		//If Mask is Showing, fadeOut()
+		if (Int.currentMask !== false && Int.sceneData.imgMask === true) {
 			Int.currentMask.hide();
 			Int.showCollector();
 			Int.setImgMask();
-			return;
-		};
-		//Else, Go to Next Scene
-		Int.index++
-		$(Int.collectorIcon).addClass("noselect");
-		if (Int.sceneData.scroll === true) {
-			console.log("next scene scroll true");
-			// Int.collector.clear();
-			Int.setSceneData();
-			Int.setMask();
-			Int.hideCollector();
-			Int.setProgress();
 			Int.setSubScene();
-			Int.scrollPageY("next");
+			Int.maskIndex = 1;
+			return
+		};
+		//If Mask Should Be Displayed
+		if (Int.sceneData.mask !== false) {
+			Int.setMask();
+		//Else Hide Mask & Set Subscene Img Mask
 		} else {
-			console.log("next scene scroll false");
-			Int.setSceneData();
+			Int.currentMask.hide();
+			Int.maskIndex = 1;
 			Int.setImgMask();
 			Int.setSubScene();
+			Int.showCollector();
+			Int.setProgress();
 		}
 	};
 
@@ -585,6 +586,11 @@ Global Event Bindings
 	});
 	//Click Intro Prompt To Start
 	$(interactive.introPrompt).on("click", function (e) {
+		interactive.nextScene();
+	});
+
+	//Click Mask to Go To Next
+	$(interactive.wrapper + " " + interactive.mask).on("click", function (e) {
 		interactive.nextScene();
 	});
 
