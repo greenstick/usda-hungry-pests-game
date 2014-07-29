@@ -29,7 +29,6 @@ Interactive Parent
 			Int.items 				= {},
 			Int.scenes 				= ko.observableArray([]),
 			Int.masks 				= {},
-			Int.scrollEnabled 		= true,
 			Int.scrolling 			= false,
 			Int.itemCount 			= 0,
 			Int.collectorIcon 		= '#icon-collector .icons .icon',
@@ -37,6 +36,7 @@ Interactive Parent
 			Int.quizExit 			= '#quiz .exit',
 			Int.vinvasive 			= '#vinvasive',
 			Int.terrifyingComment 	= '#vinvasive .evil-words',
+			Int.finalIcon 			= '#final .all-icons .icon',
 			Int.maskIndex 			= 1,
 			Int.currentMask 		= false,
 			Int.activeQuizItem,
@@ -86,6 +86,7 @@ Constructors
 			coll.ui 			= args.ui,
 			coll.all 			= ko.observableArray([]),
 			coll.icons 			= ko.observableArray([]),
+			coll.showing 		= false,
 
 		/*
 		Methods
@@ -108,6 +109,14 @@ Constructors
 					coll.all.push(coll.icons()[i]);
 				};
 				coll.icons([]);
+			},
+			coll.show 			= function () {
+				$(coll.ui).fadeIn();
+				coll.showing = true;
+			},
+			coll.hide 			= function () {
+				$(coll.ui).fadeOut();
+				coll.showing = false;
 			};
 
 		return coll;
@@ -116,7 +125,24 @@ Constructors
 	//Progress Bar Constructor
 	Interactive.prototype._ProgressBar_ 		= function (args) {
 		var bar 				= this;
-			bar.element 		= args.element;
+			bar.element 		= args.element,
+			bar.showing 		= false;
+
+		/*
+		Methods
+		*/
+
+			bar.show 			= function () {
+				$(bar.element).fadeIn();
+				bar.showing = true;
+				console.log('showing progress bar');
+			},
+			bar.hide 			= function () {
+				$(bar.element).fadeOut();
+				bar.showing = false;
+				console.log('hiding progress bar');
+			};
+
 		return bar;
 	};
 
@@ -125,7 +151,7 @@ Constructors
 		var mask 				= this;
 			mask.element 		= args.element,
 			mask.close 			= args.close,
-			mask.showing;
+			mask.showing 		= false;
 
 		/*
 		Methods
@@ -203,14 +229,14 @@ Interactive Navigation Handling
 		$(Int.scene).last().addClass(Int.snapLast);
 		if (Int.mobile === true) {
 			$(Int.wrapper).on("touchstart", function (e) {
-				if (Int.scrollEnabled === true) Int.touchStart(e);
+				Int.touchStart(e);
 			});
 			$(Int.wrapper).on("touchmove", function (e) {
-				if (Int.scrollEnabled === true) Int.touchMoveY(e);
+				Int.touchMoveY(e);
 			});
 		} else {
 			$(Int.wrapper).on('mousewheel DOMMouseScroll MozMousePixelScroll wheel', function (e) {
-				if (Int.scrollEnabled === true) Int.scrollDelta(e);
+				Int.scrollDelta(e);
 			});
 		}
 	};
@@ -227,6 +253,7 @@ Interactive Navigation Handling
 		if (this.delta) {
 			e.preventDefault ? e.preventDefault() : e.returnValue = false;
 			this.scrollDirectionY();
+			return
 		}
 	};
 
@@ -260,7 +287,6 @@ Interactive Navigation Handling
 				easing: Int.easing,
 				onAfter: function () {
 					Int.scrolling = false;
-					if (typeof callback === 'function') callback();
 				}
 			});
 		};
@@ -279,7 +305,7 @@ Interactive Navigation Handling
 			}, Int.duration);
 		} else {
 			console.log("Scroll Destination Error: " + destination);
-		}
+		};
 	};
 
 	//Uses Delta to Determine Scroll Direction
@@ -303,8 +329,8 @@ Interactive Navigation Handling
 					this.scrolling = true;
 					this.prevScene();
 				} else return;
-			}
-		}
+			};
+		};
 	};
 
 /*
@@ -340,11 +366,12 @@ Interactive Item Handling
 			Int.loadQuiz(id);
 		} else {
 			Int.collector.add(id);
+			$(Int.finalIcon + '.' + id).addClass('selected');
 			Int.itemCount++;
 			if ((Int.itemCount) === Int.sceneData.limit) {
 				Int.sceneEnd();
-			};
-		};
+			}
+		}
 	};
 
 	//Item Deselection
@@ -352,6 +379,7 @@ Interactive Item Handling
 		var Int = interactive;
 		if ($(Int.collectorIcon + "." + id).hasClass('noselect')) return;
 		Int.collector.remove(id);
+		$(Int.finalIcon + '.' + id).removeClass('selected');
 		d3.select("#" + id).classed('selected', false).classed('selectable', true);
 		Int.itemCount--;
 	};
@@ -375,6 +403,7 @@ Interactive Quiz & Vin Vasive
 		$(Int.vinvasive).fadeOut();
 		$(Int.wrapper + ' .' + Int.items[Int.activeTerror].vin.element).fadeOut();
 		Int.collector.add(Int.activeTerror);
+		$(Int.finalIcon + '.' + Int.activeTerror).addClass('selected');
 		Int.itemCount++;
 		if (Int.itemCount === Int.sceneData.limit) {
 			Int.sceneEnd();
@@ -393,35 +422,17 @@ Interactive Quiz & Vin Vasive
 		Int.quiz.show();
 		Int.activeQuizItem = id;
 	};
+
 	//Dismiss Quiz and Push Item to Collector
 	Interactive.prototype.dismissQuiz 			= function () {
 		var Int = this;
 		Int.collector.add(Int.activeQuizItem);
+		$(Int.finalIcon + '.' + Int.activeQuizItem).addClass('selected');
 		Int.itemCount++;
 		if (Int.itemCount === Int.sceneData.limit) {
 			Int.sceneEnd();
 		};
 	};
-
-/*
-Collector & Progress Handling
-*/
-
-	Interactive.prototype.showCollector 		= function () {
-		var Int = this;
-		if (Int.sceneData.collector.display === true) $(Int.collector.ui).fadeIn();
-	};
-
-	Interactive.prototype.hideCollector 		= function () {
-		var Int = this;
-		$(Int.collector.ui).fadeOut();
-	};
-
-	Interactive.prototype.setProgress 			= function () {
-		var Int = this;
-
-	};
-
 
 /*
 Mask Handling
@@ -436,18 +447,15 @@ Mask Handling
 			element 	: prefix + '-mask-' + Int.maskIndex,
 			close 		: prefix + '-mask-' + Int.maskIndex + ' .dismiss'
 		});
-		console.log(mask.element);
 		if (Int.currentMask !== false) Int.currentMask.hide();
 		mask.show();
 		Int.currentMask = mask;
 		Int.maskIndex++
-		console.log(Int.currentMask);
 	};
 
 	//Set Image Mask
 	Interactive.prototype.setImgMask 				= function () {
 		var Int = this;
-		console.log("setting img mask");
 		if (Int.sceneData.imgMask === true) {
 			var prefix = (Int.sceneData.sub !== false) ? '#' + Int.sceneData.sub : '#' + Int.sceneData.scene,
 			imgMask = new Int._Mask_({
@@ -478,7 +486,6 @@ Interactive Scene Handling
 			}
 		}
 		Int.itemCount = 0;
-		console.log(Int.sceneData);
 		return Int.sceneData;
 	};
 
@@ -496,7 +503,43 @@ Interactive Scene Handling
 		var Int = this;
 		Int.hideMasks();
 		Int.nextScene();
-		console.log('scene end');
+	};
+
+	//Set State
+	Interactive.prototype.setScene 				= function (destination) {
+		var Int = this;
+		console.log(Int.scrolling);
+		//Determine Previous State
+		if (destination === "next") previousState = Int.data[Int.index - 2];
+		if (destination === "prev") previousState = Int.data[Int.index];
+
+	//Set The Following According to Previous State . . .
+
+		//Scroll?
+		previousState.scroll === true ? Int.scrollPageY("next") : false;
+		//Hide Previous Mask
+		previousState.mask !== false ? Int.currentMask.hide() : false;
+		//Test Scroll Modal Issue 
+
+
+	//Set The Following According to New State . . .
+
+		//Setup Collector
+		Int.sceneData.collector.display === true ? Int.collector.show() : Int.collector.hide();
+		Int.sceneData.collector.reset === true ? Int.collector.clear() : false;
+		//Setup Progress
+		Int.sceneData.progress.display === true ? Int.progressBar.show() : Int.progressBar.hide();
+		//Setup Masks
+		Int.sceneData.mask !== false ? Int.setMask() : Int.maskIndex = 1;
+		//Setup Img Masks
+		Int.sceneData.imgMask !== false ? Int.setImgMask() : false;
+		//Setup Sub Scene
+		Int.sceneData.sub !== false ? Int.setSubScene() : false;
+		if (typeof Int.sceneData.limit !== 'number') {
+					setTimeout(function () {
+				Int.scrolling = false;
+			}, 600)
+		};
 	};
 
 /*
@@ -525,42 +568,18 @@ Interactive Global Macro Methods
 	//Next Scene Macro
 	Interactive.prototype.nextScene 			= function () {
 		var Int = this;
-		console.log("scene data imgmask: " + Int.sceneData.imgMask);
-		if (Int.sceneData.scroll === true) {
-			Int.scrollPageY("next");
-			Int.hideCollector();
-		}
 		Int.index++
 		Int.setSceneData();
+		Int.setScene("next");
 		$(Int.collectorIcon).addClass("noselect");
-		//If Mask is Showing, fadeOut()
-		if (Int.currentMask !== false && Int.sceneData.imgMask === true) {
-			Int.currentMask.hide();
-			Int.showCollector();
-			Int.setImgMask();
-			Int.setSubScene();
-			Int.maskIndex = 1;
-			return
-		};
-		//If Mask Should Be Displayed
-		if (Int.sceneData.mask !== false) {
-			Int.setMask();
-		//Else Hide Mask & Set Subscene Img Mask
-		} else {
-			Int.currentMask.hide();
-			Int.maskIndex = 1;
-			Int.setImgMask();
-			Int.setSubScene();
-			Int.showCollector();
-			Int.setProgress();
-		}
 	};
 
-	// //Previous Scene Macro
+	//Previous Scene Macro
 	Interactive.prototype.prevScene 			= function () {
-		var Int = this;
-		// Int.scrollPageY("prev");
-		alert("BACK TO THE FUTURE!");
+		// var Int = this;
+		// Int.index--
+		// Int.setSceneData();
+		// Int.setScene("prev");
 	};
 
 /*

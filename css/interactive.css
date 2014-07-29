@@ -22,7 +22,18 @@ Color Palette
 /*
 Animations
 */
-
+@keyframes bounce {
+    0% {-webkit-transform: translate(0px, 0px);}
+    25% {-webkit-transform: translate(0px, -3px);}
+    50% {-webkit-transform: translate(0px, -4px);}
+    75% {-webkit-transform: translate(0px, -3px);}
+    100% {-webkit-transform: translate(0px, 0px);}
+}
+@keyframes wiggle {
+    0% {-webkit-transform: rotateZ(3deg);}
+    50% {-webkit-transform: rotateZ(-3deg);}
+    100% {-webkit-transform: rotateZ(3deg);}
+}
 @-webkit-keyframes bounce {
     0% {-webkit-transform: translate(0px, 0px);}
     25% {-webkit-transform: translate(0px, -3px);}
@@ -45,7 +56,7 @@ General Styles
 	width: 964px;
 	height: 550px;
 	margin: 0 auto;
-	/*overflow: hidden;*/
+	overflow: hidden;
 	color: #FFFFFF;
 	font-family: 'Montserrat', sans-serif;
 }
@@ -58,7 +69,7 @@ General Styles
 	left: 0px;
 	width: 964px;
 	height: 550px;
-	/*overflow: hidden;*/
+	overflow: hidden;
 }
 #interactive-wrapper .viewport .scenes {
 	position: absolute;
@@ -112,6 +123,10 @@ General Styles
 }
 #interactive-wrapper .viewport .scenes .scene .interactive-element .item.selectable:hover {
 	cursor: pointer;
+	animation-name: bounce;
+	animation-duration: .4s;
+	animation-iteration-count: infinite;
+	animation-timing-function: ease;
 	-webkit-animation-name: bounce;
     -webkit-animation-duration: .4s;
     -webkit-animation-iteration-count: infinite;
@@ -221,6 +236,10 @@ Icon Collector
 	height: 54px;
 	margin: 0 2px 6px 0;
 	cursor: pointer;
+	animation-name: wiggle;
+	animation-duration: .4s;
+	animation-iteration-count: infinite;
+	animation-timing-function: ease;
 	-webkit-animation-name: wiggle;
     -webkit-animation-duration: .4s;
     -webkit-animation-iteration-count: infinite;
@@ -339,7 +358,7 @@ Quiz
 	left: 0px;
 	width: 964px;
 	height: 550px;
-	z-index: 500;
+	z-index: 9999;
 	display: none;
 }
 #quiz .quiz {
@@ -438,7 +457,7 @@ Vin Vasive
 	left: 0px;
 	width: 964px;
 	height: 550px;
-	z-index: 500;
+	z-index: 9999;
 	cursor: pointer;
 	display: none;
 }
@@ -535,10 +554,10 @@ Final
 	position: absolute;
 	width: 96px;
 	height: 96px;
-	opactiy: 0;
+	display: none;
 }
-#final .all-icons .icon.active {
-	opacity: 1;
+#final .all-icons .icon.selected {
+	display: block;
 }
 #final .cta-1 {
 	display: block;

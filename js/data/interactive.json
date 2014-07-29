@@ -376,7 +376,7 @@
         "collector": {
             "display": true,
             "init": false,
-            "reset": true
+            "reset": false
         },
         "progress": {
             "display": true
@@ -536,7 +536,7 @@
         "collector": {
             "display": true,
             "init": false,
-            "reset": true
+            "reset": false
         },
         "progress": {
             "display": true
@@ -689,10 +689,10 @@
         "collector": {
             "display": false,
             "init": false,
-            "reset": true
+            "reset": false
         },
         "progress": {
-            "display": true
+            "display": false
         },
         "mask": false,
         "imgMask": false,
