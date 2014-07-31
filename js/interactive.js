@@ -33,12 +33,25 @@ Interactive Parent
 			Int.itemCount 			= 0,
 			Int.collectorIcon 		= '#icon-collector .icons .icon',
 			Int.quizElement 		= '#quiz',
+			Int.quizBody 			= '#quiz .quiz',
 			Int.quizExit 			= '#quiz .exit',
 			Int.vinvasive 			= '#vinvasive',
-			Int.terrifyingComment 	= '#vinvasive .evil-words',
+			Int.vinvasiveElement 	= '#vinvasive .vin-element',
+			Int.vinvasiveBubble 	= '#vinvasive .evil-words',
+			Int.terrifyingComment 	= '#vinvasive .evil-words .copy',
 			Int.finalIcon 			= '#final .all-icons .icon',
 			Int.maskIndex 			= 1,
 			Int.currentMask 		= false,
+			Int.cta1 				= '#final .cta-1',
+			Int.cta2 				= '#final .cta-2',
+			Int.cta3 				= '#final .cta-3',
+			Int.pestPopup 			= '#pest-popup',
+			Int.activePest 			= ko.observable(''),
+			Int.pestInfo 			= ko.observable(''),
+			Int.vinvasiveMask 		= ko.observable(''),
+			Int.progressBarElement 	= '#progress-bar .bar',
+			Int.progressActive 		= '#progress-bar .bar.active',
+			Int.progressDone 		= '#progress-bar .bar.done',
 			Int.activeQuizItem,
 			Int.activeTerror,
 			Int.sceneData,
@@ -62,21 +75,9 @@ Constructors
 		var item 				= this;
 			item.element 		= args.id,
 			item.quiz 			= args.quiz,
-			item.vin 			= args.vin;
+			item.vin 			= args.vin,
+			item.pest 			= args.pest;
 		return item;
-	};
-
-	//Scene Constructor
-	Interactive.prototype._Scene_ 				= function (args) {
-		var scene 				= this;
-			scene.name 			= args.name,
-			scene.sub 			= args.sub,
-			scene.index 		= args.index,
-			scene.limit 		= args.limit,
-			scene.scroll 		= args.scroll,
-			scene.collector 	= args.collector,
-			scene.progress 		= args.progress;
-		return scene;
 	};
 
 	//Item Collector
@@ -95,13 +96,10 @@ Constructors
 			//Add to Items Array
 			coll.add 			= function (id) {
 				coll.icons.push(id);
-				// coll.icons.valueHasMutated();
-				console.log("added " + id);
 			},
+			//Remove From Items Array
 			coll.remove 		= function (id) {
 				coll.icons.remove(id);
-				// coll.icons.valueHasMutated();
-				console.trace("removed " + id);
 			},
 			//Clear Items Array
 			coll.clear 			= function () {
@@ -110,10 +108,12 @@ Constructors
 				};
 				coll.icons([]);
 			},
+			//Show Collector
 			coll.show 			= function () {
 				$(coll.ui).fadeIn();
 				coll.showing = true;
 			},
+			//Hide Collector
 			coll.hide 			= function () {
 				$(coll.ui).fadeOut();
 				coll.showing = false;
@@ -125,8 +125,9 @@ Constructors
 	//Progress Bar Constructor
 	Interactive.prototype._ProgressBar_ 		= function (args) {
 		var bar 				= this;
+			bar.parent 			= args.parent,
 			bar.element 		= args.element,
-			bar.showing 		= false;
+			bar.showing 		= false,
 
 		/*
 		Methods
@@ -135,12 +136,14 @@ Constructors
 			bar.show 			= function () {
 				$(bar.element).fadeIn();
 				bar.showing = true;
-				console.log('showing progress bar');
 			},
 			bar.hide 			= function () {
 				$(bar.element).fadeOut();
 				bar.showing = false;
-				console.log('hiding progress bar');
+			},
+			bar.update 			= function () {
+				$(bar.parent.progressActive).removeClass('active').addClass('done');
+				$(bar.parent.progressDone).next().addClass('active');
 			};
 
 		return bar;
@@ -151,7 +154,7 @@ Constructors
 		var mask 				= this;
 			mask.element 		= args.element,
 			mask.close 			= args.close,
-			mask.showing 		= false;
+			mask.showing 		= false,
 
 		/*
 		Methods
@@ -161,13 +164,11 @@ Constructors
 			mask.show 			= function () {
 				$(mask.element).fadeIn();
 				mask.showing = true;
-				console.log("showing mask");
 			},
 			//Hide Mask
 			mask.hide 			= function () {
 				$(mask.element).fadeOut();
 				mask.showing = false;
-				console.log("hiding mask");
 			};
 
         return mask;
@@ -177,9 +178,11 @@ Constructors
 	Interactive.prototype._Quiz_ 				= function (args) {
 		var quiz 				= this;
 			quiz.parent 		= args.parent,
-			quiz.question 		= ko.observable(),
+			quiz.question 		= ko.observable(''),
 			quiz.answer 		= ko.observableArray([]),
-			quiz.result 		= ko.observable(),
+			quiz.result 		= ko.observable(''),
+			quiz.triangle 		= ko.observable(''),
+			quiz.value 			= ko.observable(''),
 
 		/*
 		Methods
@@ -193,7 +196,8 @@ Constructors
 				quiz.parent.dismissQuiz();
 			},
 			quiz.selectAnswer  	= function (data) {
-				quiz.result(data.result)
+				quiz.value(data.value);
+				quiz.result(data.result);
 			};
 
 		return quiz;
@@ -304,7 +308,7 @@ Interactive Navigation Handling
 				snapTo('.' + Int.snapCurrent);
 			}, Int.duration);
 		} else {
-			console.log("Scroll Destination Error: " + destination);
+			console.trace("Scroll Destination Error: " + destination);
 		};
 	};
 
@@ -358,8 +362,8 @@ Interactive Item Handling
 	Interactive.prototype.selectItem 			= function (id) {
 		var Int = this;
 		if (Int.itemCount === Int.sceneData.limit) return;
-		if (Int.currentImgMask.showing === true) Int.currentImgMask.hide();
-		d3.select('#' + id).classed('selectable', false).classed('selected', true);
+		if ($('#' + id).attr('class').indexOf("selected") > -1) return;
+		$('#' + id).attr('class', 'icon selected');
 		if (Int.items[id].vin.element !== false) {
 			Int.terrify(id);
 		} else if (Int.items[id].quiz !== false) {
@@ -380,12 +384,12 @@ Interactive Item Handling
 		if ($(Int.collectorIcon + "." + id).hasClass('noselect')) return;
 		Int.collector.remove(id);
 		$(Int.finalIcon + '.' + id).removeClass('selected');
-		d3.select("#" + id).classed('selected', false).classed('selectable', true);
+		$("#" + id).attr('class', 'item selectable');
 		Int.itemCount--;
 	};
 
 /*
-Interactive Quiz & Vin Vasive
+Interactive Quiz & Vin Vasive & Pests
 */
 	
 	//Terrify With The Evil Vin Vasive
@@ -393,6 +397,8 @@ Interactive Quiz & Vin Vasive
 		var Int = this;
 		$(Int.terrifyingComment).text(Int.items[id].vin.copy);
 		$(Int.vinvasive).fadeIn();
+		$(Int.vinvasiveElement).animate({"left": "0px"}, 400);
+		$(Int.vinvasiveBubble).animate({"left": "192px"})
 		$(Int.wrapper + ' .' + Int.items[id].vin.element).fadeIn();
 		Int.activeTerror = id;
 	};
@@ -401,7 +407,10 @@ Interactive Quiz & Vin Vasive
 	Interactive.prototype.dismissTerror 		= function () {
 		var Int = this;
 		$(Int.vinvasive).fadeOut();
-		$(Int.wrapper + ' .' + Int.items[Int.activeTerror].vin.element).fadeOut();
+		$(Int.wrapper + ' .' + Int.items[Int.activeTerror].vin.element).fadeOut(function () {
+			$(Int.vinvasiveElement).css("left", "-329px");
+			$(Int.vinvasiveBubble).css("left", "-152px");
+		});
 		Int.collector.add(Int.activeTerror);
 		$(Int.finalIcon + '.' + Int.activeTerror).addClass('selected');
 		Int.itemCount++;
@@ -413,6 +422,8 @@ Interactive Quiz & Vin Vasive
 	//Clear old Quiz Data and Load New Data
 	Interactive.prototype.loadQuiz 				= function (id) {
 		var Int = this;
+		$(Int.quizBody).css("left", Int.items[id].quiz.position.x + "px").css("top", Int.items[id].quiz.position.y + "px");
+		Int.quiz.triangle(Int.items[id].quiz.triangle);
 		Int.quiz.answer([]);
 		Int.quiz.result(null);
 		Int.quiz.question(Int.items[id].quiz.question);
@@ -434,15 +445,28 @@ Interactive Quiz & Vin Vasive
 		};
 	};
 
+	//Show Pest on Final Scene
+	Interactive.prototype.showPest 				= function (id, e) {
+		var Int = this;
+		if (typeof Int.items[id] === 'undefined') return
+		Int.pestInfo(Int.items[id].pest.copy);
+		Int.activePest(Int.items[id].pest.src);
+		$(Int.pestPopup).css('left', e.clientX).css('top', e.clientY).stop().fadeIn();
+	};
+
+	//Hide Pest on Final Scene
+	Interactive.prototype.hidePest 				= function () {
+		var Int = this;
+		$(Int.pestPopup).stop().fadeOut();
+	};
+
 /*
 Mask Handling
 */
 
 	//Set Mask
 	Interactive.prototype.setMask 				= function () {
-		var Int = this;
-		console.log("setting mask");
-		var prefix = '#' + Int.sceneData.scene,
+		var Int = this, prefix = '#' + Int.sceneData.scene,
 		mask = new Int._Mask_({
 			element 	: prefix + '-mask-' + Int.maskIndex,
 			close 		: prefix + '-mask-' + Int.maskIndex + ' .dismiss'
@@ -508,38 +532,59 @@ Interactive Scene Handling
 	//Set State
 	Interactive.prototype.setScene 				= function (destination) {
 		var Int = this;
-		console.log(Int.scrolling);
 		//Determine Previous State
 		if (destination === "next") previousState = Int.data[Int.index - 2];
 		if (destination === "prev") previousState = Int.data[Int.index];
-
-	//Set The Following According to Previous State . . .
-
 		//Scroll?
 		previousState.scroll === true ? Int.scrollPageY("next") : false;
 		//Hide Previous Mask
 		previousState.mask !== false ? Int.currentMask.hide() : false;
-		//Test Scroll Modal Issue 
-
-
-	//Set The Following According to New State . . .
-
 		//Setup Collector
 		Int.sceneData.collector.display === true ? Int.collector.show() : Int.collector.hide();
 		Int.sceneData.collector.reset === true ? Int.collector.clear() : false;
 		//Setup Progress
 		Int.sceneData.progress.display === true ? Int.progressBar.show() : Int.progressBar.hide();
+		Int.sceneData.progress.update !== false ? Int.progressBar.update() : false;
 		//Setup Masks
 		Int.sceneData.mask !== false ? Int.setMask() : Int.maskIndex = 1;
 		//Setup Img Masks
 		Int.sceneData.imgMask !== false ? Int.setImgMask() : false;
 		//Setup Sub Scene
-		Int.sceneData.sub !== false ? Int.setSubScene() : false;
+		setTimeout(function () {
+			Int.sceneData.sub !== false ? Int.setSubScene() : false;
+		}, 200);
+		//Setup Vinvasive Mask
+		Int.sceneData.vinMask !== false ? Int.vinvasiveMask(Int.sceneData.vinMask) : Int.vinvasiveMask('');
+		//If Last Scene, Initialize Last Animation Sequence
+		Int.sceneData.index === 12 ? Int.lastAnimSequence() : false;
 		if (typeof Int.sceneData.limit !== 'number') {
-					setTimeout(function () {
+			setTimeout(function () {
 				Int.scrolling = false;
-			}, 600)
+			}, 1000)
 		};
+	};
+
+	//Last Scene Animation Sequence
+	Interactive.prototype.lastAnimSequence 		= function () {
+		var Int = this;
+		setTimeout(function () {
+			$(Int.cta1).fadeOut(2000, function () {
+				$(Int.finalIcon).fadeIn(2000, function () {
+					$(this).addClass('selected');
+				});
+				setTimeout(function () {
+					$(Int.finalIcon).animate({"opacity": .5}, 3000);
+				}, 3000);
+				$(Int.cta2).fadeIn(function () {
+					setTimeout(function () {
+						$(Int.cta2).fadeOut(1000, function () {
+							$(Int.cta3).fadeIn();
+							$(Int.finalIcon).addClass('interactable');
+						});
+					}, 6000)
+				});
+			});
+		}, 4000);
 	};
 
 /*
@@ -557,11 +602,12 @@ Interactive Global Macro Methods
 			//Initialize Item Collector
 			Int.collector = new Int._ItemCollector_({element: '#item-collector', ui: '.notepad'});
 			//Initialize Progress Bar
-			Int.progressBar = new Int._ProgressBar_({element: '#progress-bar'});
+			Int.progressBar = new Int._ProgressBar_({parent: Int, element: '#progress-bar'});
 			//Initialize Quiz
 			Int.quiz = new Int._Quiz_({parent: Int});
 			//Apply Bindings
 			ko.applyBindings(interactive, document.getElementById('interactive-wrapper'));
+			console.log("mobile = " + Int.mobile);
 		});
 	};
 
@@ -598,11 +644,11 @@ Global Event Bindings
 		$(this).focus();
 	});
 
-	//Arrow Up & Arrow Down Navigation
-	$(interactive.wrapper).on("keydown", function (e) {
-		if (e.keyCode === 40) (e.preventDefault(), interactive.nextScene());
-    	if (e.keyCode === 38) (e.preventDefault(), interactive.prevScene());
-	});
+	// //Arrow Up & Arrow Down Navigation
+	// $(interactive.wrapper).on("keydown", function (e) {
+	// 	if (e.keyCode === 40) (e.preventDefault(), interactive.nextScene());
+ 	//  if (e.keyCode === 38) (e.preventDefault(), interactive.prevScene());
+	// });
 	//Click Intro Prompt To Start
 	$(interactive.introPrompt).on("click", function (e) {
 		interactive.nextScene();
@@ -631,5 +677,20 @@ Vin Vasive Bindings
 		interactive.dismissTerror();
 	});
 
-}(jQuery, ko, d3));
+/*
+Final Screen Event Bindings
+*/
+
+	//Show Pest
+	$(interactive.finalIcon).on("mouseover", function (e) {
+		var id = $(this).data().id;
+		if ($(this).hasClass('interactable')) interactive.showPest(id, e);
+	});
+
+	//Hide Pest
+	$(interactive.finalIcon).on("mouseleave", function (e) {
+		interactive.hidePest();
+	});
+
+}(jQuery, ko));
 

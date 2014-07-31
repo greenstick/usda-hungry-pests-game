@@ -11,10 +11,12 @@
             "reset": false
         },
         "progress": {
-            "display": false
+            "display": false,
+             "update": false
         },
         "mask": false,
         "imgMask": false,
+        "vinMask": false,
         "item": false
     },
     {
@@ -29,10 +31,12 @@
             "reset": false
         },
         "progress": {
-            "display": false
+            "display": false,
+             "update": false
         },
         "mask": "kitchen-mask-1",
         "imgMask": false,
+        "vinMask": false,
         "item": false
     },
     {
@@ -47,10 +51,12 @@
             "reset": false
         },
         "progress": {
-            "display": false
+            "display": false,
+             "update": false
         },
         "mask": "kitchen-mask-2",
         "imgMask": false,
+        "vinMask": false,
         "item": false
     },
     {
@@ -65,10 +71,12 @@
             "reset": false
         },
         "progress": {
-            "display": true
+            "display": true,
+             "update": true
         },
         "mask": false,
         "imgMask": true,
+        "vinMask": "img/masks/vin-mask-kitchen.png",
         "item": [
             {
                 "id": "oatmeal",
@@ -102,7 +110,12 @@
                             "value": false,
                             "result": "Actually, it's the light brown apple moth. Watch out! It's known to damage more than 2,000 species of plants and trees."
                         }
-                    ]
+                    ],
+                    "position": {
+                        "x": 300,
+                        "y": 172
+                    },
+                    "triangle": "top left"
                 },
                 "vin": {
                     "element": false,
@@ -142,7 +155,7 @@
                 "quiz": false,
                 "vin": {
                     "element": "vinvasive-1",
-                    "copy": "\"Look at that. You and I both have a sweet tooth!\""
+                    "copy": "Look at that. You and I both have a sweet tooth!"
                 },
                 "pest": {
                     "copy": "The <strong>Asian longhorned beetle</strong> is a threat to America's hardwood trees, including the maple trees used to make maple syrup.",
@@ -164,7 +177,12 @@
                             "value": true,
                             "result": "FALSE: Correct. There is no cure for citrus greening, a disease carried by the Asian citrus psyllid."
                         }
-                    ]
+                    ],
+                    "position": {
+                        "x": 200,
+                        "y": 88
+                    },
+                    "triangle": "top left"
                 },
                 "vin": {
                     "element": false,
@@ -189,10 +207,12 @@
             "reset": false
         },
         "progress": {
-            "display": true
+            "display": true,
+             "update": false
         },
         "mask": false,
         "imgMask": true,
+        "vinMask": "img/masks/vin-mask-kitchen.png",
         "item": [
             {
                 "id": "peanutbutter",
@@ -223,7 +243,7 @@
                 "quiz": false,
                 "vin": {
                     "element": "vinvasive-1",
-                    "copy": "\"I took a sip. You don't mind, do you?\""
+                    "copy": "I took a sip. You don't mind, do you?"
                 },
                 "pest": {
                     "copy": "The <strong>Asian citrus psyllid</strong> spreads a devastating disease&mdash;<em>huanglongbing</em> or citrus greening&mdash;to citrus plants like lemon, orange, and lime trees.",
@@ -280,10 +300,12 @@
             "reset": false
         },
         "progress": {
-            "display": true
+            "display": true,
+             "update": false
         },
         "mask": false,
         "imgMask": true,
+        "vinMask": "img/masks/vin-mask-kitchen.png",
         "item": [
             {
                 "id": "grapes",
@@ -300,7 +322,12 @@
                             "value": false,
                             "result": "You getting your information through the grapevine? This moth attacks every type of grape."
                         }
-                    ]
+                    ],
+                    "position": {
+                        "x": 392,
+                        "y": 46
+                    },
+                    "triangle": "top right"
                 },
                 "vin": {
                     "element": false,
@@ -332,7 +359,7 @@
                 },
                 "pest": {
                     "copy": "",
-                    "src": "img/pests/.png"
+                    "src": "img/pests/giant-african-snail.png"
                 }
             },
             {
@@ -361,10 +388,12 @@
             "reset": false
         },
         "progress": {
-            "display": false
+            "display": false,
+             "update": false
         },
         "mask": "garage-mask-1",
         "imgMask": false,
+        "vinMask": false,
         "item": false
     },
     {
@@ -379,10 +408,12 @@
             "reset": false
         },
         "progress": {
-            "display": true
+            "display": true,
+             "update": true
         },
         "mask": false,
         "imgMask": false,
+        "vinMask": "img/masks/vin-mask-garage.png",
         "item": [
             {
                 "id": "magazines",
@@ -401,7 +432,7 @@
                 "quiz": false,
                 "vin": {
                     "element": "vinvasive-1",
-                    "copy": "\"I'm having a ball!\""
+                    "copy": "I'm having a ball!"
                 },
                 "pest": {
                     "copy": "Did you know cotton is used on the inside of soccer balls? The <strong>false codling moth</strong> feeds on more than 100 host plants, including cotton.",
@@ -428,7 +459,12 @@
                             "value": false,
                             "result": "Strike! Baseball bats are made from ash trees, which are attacked by the emerald ash borer and Asian longhorned beetle. Bats can also be made from maple trees, which is number one on the Asian longhorn beetle's menu!"
                         }
-                    ]
+                    ],
+                    "position": {
+                        "x": 242,
+                        "y": 176
+                    },
+                    "triangle": "bottom left"
                 },
                 "vin": {
                     "element": false,
@@ -444,7 +480,7 @@
                 "quiz": false,
                 "vin": {
                     "element": "vinvasive-2",
-                    "copy": "\"I'll take care of him. Don't you worry!\""
+                    "copy": "I'll take care of him. Don't you worry!"
                 },
                 "pest": {
                     "copy": "Young animals like puppies may be especially susceptible to the venom from an <strong>imported fire ant’s</strong> sting.",
@@ -466,7 +502,12 @@
                             "value": true,
                             "result": "FALSE: Can't fool you! Correct. The false codling moth feeds on more than 100 host plants, including the cotton plant used to make sweatshirts."
                         }
-                    ]
+                    ],
+                    "position": {
+                        "x": 132,
+                        "y": 132
+                    },
+                    "triangle": "bottom right"
                 },
                 "vin": {
                     "element": false,
@@ -503,13 +544,15 @@
             "reset": false
         },
         "progress": {
-            "display": false
+            "display": false,
+             "update": false
         },
         "mask": "outdoors-mask-1",
         "imgMask": false,
+        "vinMask": false,
         "item": false
     },
-        {
+    {
         "index": 10,
         "scene": "outdoors",
         "sub": false,
@@ -521,10 +564,12 @@
             "reset": false
         },
         "progress": {
-            "display": false
+            "display": false,
+             "update": false
         },
         "mask": "outdoors-mask-2",
         "imgMask": false,
+        "vinMask": false,
         "item": false
     },
     {
@@ -539,17 +584,19 @@
             "reset": false
         },
         "progress": {
-            "display": true
+            "display": true,
+             "update": true
         },
         "mask": false,
         "imgMask": false,
+        "vinMask": "img/masks/vin-mask-outdoors.png",
         "item": [
             {
                 "id": "treehouse",
                 "quiz": false,
                 "vin": {
                     "element": "vinvasive-2",
-                    "copy": "\"Fancy meeting you here!\""
+                    "copy": "Fancy meeting you here!"
                 },
                 "pest": {
                     "copy": "The hardwood used to build tree houses is threatened by the <strong>Asian longhorned beetle</strong> and emerald ash borer.",
@@ -576,7 +623,12 @@
                             "value": true,
                             "result": "You've been reading up on hungry pests! Did you know both the Asian longhorned beetle and the European gypsy moth attack birch trees?"
                         }
-                    ]
+                    ],
+                    "position": {
+                        "x": 200,
+                        "y": 226
+                    },
+                    "triangle": "bottom right"
                 },
                 "vin": {
                     "element": false,
@@ -604,7 +656,7 @@
                 "quiz": false,
                 "vin": {
                     "element": "vinvasive-1",
-                    "copy": "\"What beautiful scenery to bike through. I could just eat it up!\""
+                    "copy": "What beautiful scenery to bike through. I could just eat it up!"
                 },
                 "pest": {
                     "copy": "Your outdoor scenery could be ruined by the light brown apple moth, Asian longhorned beetle, emerald ash borer, gypsy moth, and <strong>sudden oak death</strong>.",
@@ -631,7 +683,12 @@
                             "value": true,
                             "result": "Yep. The Mediterranean fruit fly is considered the most important agricultural pest in the world, and can infest hundreds of varieties of fruits, vegetables, and nuts."
                         }
-                    ]
+                    ],
+                    "position": {
+                        "x": 296,
+                        "y": 168
+                    },
+                    "triangle": "bottom left"
                 },
                 "vin": {
                     "element": false,
@@ -692,10 +749,12 @@
             "reset": false
         },
         "progress": {
-            "display": false
+            "display": false,
+             "update": false
         },
         "mask": false,
         "imgMask": false,
+        "vinMask": false,
         "item": false
     }
 ]

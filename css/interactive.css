@@ -7,16 +7,16 @@ Color Palette
 */
 
 .yllw {
-	color: rgba(229, 196, 57, 1);
+	color: #e5c439;
 }
 .frst {
-	color: rgba(0, 91, 38, 1) ;
+	color: #005b26;
 }
 .mgta {
-	color: rgba(241, 71, 94, 1);
+	color: #f1475e;
 }
 .aqua {
-	color: rgba(25, 158, 147, 1);
+	color: #199e93;
 }
 
 /*
@@ -50,7 +50,32 @@ Animations
 /*
 General Styles
 */
-
+a:visited, a:hover, a:link, a:active {
+	text-decoration: none;
+}
+#update-browser {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 964px;
+	height: 550px;
+	background-color: #FFFFFF;
+	font-family: 'Montserrat', 'Helvetica', 'Arial', sans-serif;
+	text-align: center;
+	font-size: 28px;
+	display: none;
+	z-index: 9999;
+}
+#update-browser a {
+	position: absolute;
+	top: 258px;
+	left: 0px;
+	width: 964px;
+	color: inherit;
+}
+#update-browser a:hover {
+	color: #199e93;
+}
 #interactive-wrapper {
 	position: relative;
 	width: 964px;
@@ -168,48 +193,79 @@ Progress Bar
 	z-index: 1000;
 	display: none;
 }
+#progress-bar .line {
+	position: absolute;
+	top: 0px;
+	left: 3px;
+	width: 2px;
+	height: 550px;
+	background-color: #FFFFFF;
+}
 #progress-bar .bar {
 	position: relative;
 	width: 48px;
-	height: 120px;
-	margin: 4px 0;
+	height: 104px;
+	margin: 5px 0;
 }
 #progress-bar .bar .bar-stem {
 	position: absolute;
 	top: 0px;
 	left: 0px;
-	width: 12px;
-	height: 104px;
+	width: 8px;
+	height: 88px;
 	padding: 8px 0;
-	background-color: rgba(42, 255, 121, .9);
+	background-color: rgba(151, 159, 165, 1);
 }
 #progress-bar .bar .bar-stem .inner {
 	position: absolute;
-	top: 8px;
-	left: 4px;
-	width: 4px;
+	top: 0px;
+	left: 3px;
+	width: 2px;
 	height: 104px;
-	background-color: rgba(186, 216, 76, .5);
+	background-color: rgba(133, 145, 153, 1);
 }
 #progress-bar .bar .bar-leaf {
 	position: absolute;
-	top: 42px;
-	left: 12px;
+	top: 34px;
+	left: 8px;
 	height: 32px;
-	width: 36px;
-	border-radius: 0px 8px 8px 0px;
-	background-color: rgba(94, 191, 38, .9);
+	width: 28px;
+	border-radius: 0px 12px 12px 0px;
+	background-color: #ffffff;
 	color: #ffffff;
-	font-size: 20px;
-	line-height: 32px;
+	font-size: 16px;
+	font-style: italic;
 	text-align: center;
 	cursor: pointer;
+	display: none;
 }
-#progress-bar .bar.complete .bar-stem {
-	background-color: rgba(90, 117, 45, .9);
+#progress-bar .bar .bar-leaf .inner {
+	position: absolute;
+	top: 4px;
+	left: 0px;
+	height: 24px;
+	width: 24px;
+	line-height: 26px;
+	border-radius: 0px 8px 8px 0px;
+	background-color: rgba(94, 191, 38, 1);
 }
-#progress-bar .bar.complete .bar-stem .inner {
-	background-color: rgba(68, 89, 28, .5);
+#progress-bar .bar.active .bar-leaf {
+	display: block;
+}
+#progress-bar .bar.active .bar-stem {
+	background-color: rgba(186, 216, 76, 1);
+}
+#progress-bar .bar.done .bar-leaf {
+	display: none;
+}
+#progress-bar .bar.active .bar-stem .inner {
+	background-color: rgba(255, 255, 255, .5);
+}
+#progress-bar .bar.done .bar-stem {
+	background-color: rgba(90, 117, 45, 1);
+}
+#progress-bar .bar.done .bar-stem .inner {
+	background-color: rgba(68, 89, 28, .7);
 }
 
 /*
@@ -363,9 +419,8 @@ Quiz
 }
 #quiz .quiz {
 	position: absolute;
-	top: 40px;
-	left: 400px;
 	width: 240px;
+	height: auto;
 }
 #quiz .quiz .quiz-body {
 	position: relative;
@@ -408,6 +463,12 @@ Quiz
 	line-height: 16px;
 	border-bottom: 1px solid #ACA99C;
 	cursor: pointer;
+	letter-spacing: 0px;
+	-webkit-transition: all 0.6s;
+	transition: all 0.6s;
+}
+#quiz .quiz .quiz-body .answer:hover, #quiz .quiz .quiz-body .answer.selected {
+	color: #9B2A14;
 }
 #quiz .quiz .quiz-body .answer:last-child {
 	border: none;
@@ -424,17 +485,22 @@ Quiz
 	left: 0px;
 	width: 220px;
 	padding: 10px;
-	background-color: #9B2A14;
 	color: #FFFFFF;
 	font-size: 12px;
 	line-height: 16px;
+}
+#quiz .quiz .result.true, #quiz .quiz .exit.true {
+	background-color: #0E8E39;
+}
+#quiz .quiz .result.false, #quiz .quiz .exit.false {
+	background-color: #9B2A14;
 }
 #quiz .quiz .exit {
 	position: relative;
 	top: 0px;
 	left: 0px;
 	width: 220px;
-	padding: 0 10px 10px 10px;
+	padding: 10px;
 	font-size: 12px;
 	line-height: 16px;
 	color: #FFFFFF;
@@ -445,7 +511,37 @@ Quiz
 }
 #quiz .quiz .exit:hover {
 	color: #505657;
+	background-color: #FFFFFF;
 }
+#quiz .quiz .quiz-body .triangle {
+	position: absolute;
+	display: none;
+}
+#quiz .quiz .quiz-body .triangle.top {
+	top: 0px;
+	display: block;
+}
+#quiz .quiz .quiz-body .triangle.bottom {
+	bottom: 0px;
+	display: block;
+}
+#quiz .quiz .quiz-body .triangle.left {
+	left: -10px;
+	width: 0;
+	height: 0;
+	border-style: solid;
+	border-width: 10px 10px 10px 0;
+	border-color: transparent #ffffff transparent transparent;
+}
+#quiz .quiz .quiz-body .triangle.right {
+	right: -10px;
+	width: 0;
+	height: 0;
+	border-style: solid;
+	border-width: 10px 0 10px 10px;
+	border-color: transparent transparent transparent #ffffff;
+}
+
 
 /*
 Vin Vasive
@@ -469,15 +565,66 @@ Vin Vasive
 	height: 329px;
 	display: none;
 }
+#vinvasive .vin-element {
+	position: absolute;
+	bottom: 0px;
+	left: -329px;
+}
 #vinvasive .evil-words {
 	position: absolute;
-	top: 24px;
-	left: 136px;
-	width: 132px;
-	height: 48px;
+	bottom: 272px;
+	left: -152px;
+	width: 152px;
+	height: auto;
+	padding: 10px;
 	font-size: 12px;
 	line-height: 16px;
 	color: #FFFFFF;
+	background-color: rgba(226, 3, 0, 1);
+}
+#vinvasive .evil-words .copy {
+	position: relative;
+	left: 0px;
+	width: 132px;
+	height: auto;
+}
+#vinvasive .evil-words .triangle {
+	position: absolute;
+	bottom: -20px;
+	left: 0px;
+	width: 0;
+	height: 0;
+	border-style: solid;
+	border-width: 20px 20px 0 0;
+	border-color: #e20400 transparent transparent transparent;
+
+}
+
+/*
+Pest Popup
+*/
+
+#pest-popup {
+	position: absolute;
+	width: 248px;
+	height: auto;
+	background-color: rgba(229, 196, 57, 1);
+	display: none;
+}
+#pest-popup .info {
+	position: relative;
+	padding: 20px;
+	font-size: 13px;
+	line-height: 16px;
+	color: black;
+}
+#pest-popup .info strong {
+	color: white;
+	text-transform: uppercase;
+}
+#pest-popup .img {
+	position: relative;
+
 }
 
 /*
@@ -558,6 +705,18 @@ Final
 }
 #final .all-icons .icon.selected {
 	display: block;
+}
+#final .all-icons .interactable {
+	cursor: pointer;
+	opacity: .5;
+	-webkit-transition: opacity .4s;
+	-moz-transition: opacity .4s;
+	-ms-transition: opacity .4s;
+	-o-transition: opacity .4s;
+	transition: opacity .4s;
+}
+#final .all-icons .interactable:hover {
+	opacity: 1 !important;
 }
 #final .cta-1 {
 	display: block;
