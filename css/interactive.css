@@ -23,16 +23,16 @@ Color Palette
 Animations
 */
 @keyframes bounce {
-    0% {-webkit-transform: translate(0px, 0px);}
-    25% {-webkit-transform: translate(0px, -3px);}
-    50% {-webkit-transform: translate(0px, -4px);}
-    75% {-webkit-transform: translate(0px, -3px);}
-    100% {-webkit-transform: translate(0px, 0px);}
+    0% {transform: translate(0px, 0px);}
+    25% {transform: translate(0px, -3px);}
+    50% {transform: translate(0px, -4px);}
+    75% {transform: translate(0px, -3px);}
+    100% {transform: translate(0px, 0px);}
 }
 @keyframes wiggle {
-    0% {-webkit-transform: rotateZ(3deg);}
-    50% {-webkit-transform: rotateZ(-3deg);}
-    100% {-webkit-transform: rotateZ(3deg);}
+    0% {transform: rotateZ(3deg);}
+    50% {transform: rotateZ(-3deg);}
+    100% {transform: rotateZ(3deg);}
 }
 @-webkit-keyframes bounce {
     0% {-webkit-transform: translate(0px, 0px);}
@@ -46,12 +46,25 @@ Animations
     50% {-webkit-transform: rotateZ(-3deg);}
     100% {-webkit-transform: rotateZ(3deg);}
 }
+@-moz-keyframes bounce {
+    0% {transform: translate(0px, 0px);}
+    25% {transform: translate(0px, -3px);}
+    50% {transform: translates(0px, -4px);}
+    75% {transform: translate(0px, -3px);}
+    100% {transform: translate(0px, 0px);}
+}
+@-moz-keyframes wiggle {
+    0% {transform: rotateZ(3deg);}
+    50% {transform: rotateZ(-3deg);}
+    100% {transform: rotateZ(3deg);}
+}
 
 /*
 General Styles
 */
-a:visited, a:hover, a:link, a:active {
+#interactive-wrapper a:visited, #interactive-wrapper a:hover, #interactive-wrapper a:link, #interactive-wrapper a:active {
 	text-decoration: none;
+	color: inherit;
 }
 #update-browser {
 	position: absolute;
@@ -84,6 +97,14 @@ a:visited, a:hover, a:link, a:active {
 	overflow: hidden;
 	color: #FFFFFF;
 	font-family: 'Montserrat', sans-serif;
+}
+#interactive-wrapper, #interactive-wrapper * {
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	-o-user-select: none;
+	user-select: none;   
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 #interactive-wrapper:focus {
 	outline: none;
@@ -152,6 +173,10 @@ a:visited, a:hover, a:link, a:active {
 	animation-duration: .4s;
 	animation-iteration-count: infinite;
 	animation-timing-function: ease;
+	-moz-animation-name: bounce;
+	-moz-animation-duration: .4s;
+	-moz-animation-iteration-count: infinite;
+	-moz-animation-timing-function: ease;
 	-webkit-animation-name: bounce;
     -webkit-animation-duration: .4s;
     -webkit-animation-iteration-count: infinite;
@@ -164,20 +189,15 @@ a:visited, a:hover, a:link, a:active {
 	width: 40px;
 	height: 40px;
 }
-
-/*
-Evergreen
-*/
-
-#evergreen .notepad {
+#interactive-wrapper .check-mark {
 	position: absolute;
-	top: -3px;
-	right: 20px;
-	width: 132px;
-	height: 486px;
-	background-image: url("../img/elements/notepad.png");
-	z-index: 1000;
+	width: 48px;
+	height: 48px;
 	display: none;
+	background: url('../img/interactive/check.svg');
+}
+#interactive-wrapper .check-mark.active {
+	display: block;
 }
 
 /*
@@ -272,6 +292,17 @@ Progress Bar
 Icon Collector
 */
 
+#evergreen .notepad {
+	position: absolute;
+	top: -3px;
+	right: 20px;
+	width: 132px;
+	height: 486px;
+	background-image: url("../img/elements/notepad.png");
+	z-index: 1000;
+	display: none;
+}
+
 #icon-collector {
 	position: absolute;
 	top: 42px;
@@ -296,6 +327,10 @@ Icon Collector
 	animation-duration: .4s;
 	animation-iteration-count: infinite;
 	animation-timing-function: ease;
+	-moz-animation-name: bounce;
+	-moz-animation-duration: .4s;
+	-moz-animation-iteration-count: infinite;
+	-moz-animation-timing-function: ease;
 	-webkit-animation-name: wiggle;
     -webkit-animation-duration: .4s;
     -webkit-animation-iteration-count: infinite;
@@ -580,7 +615,7 @@ Vin Vasive
 	font-size: 12px;
 	line-height: 16px;
 	color: #FFFFFF;
-	background-color: rgba(226, 3, 0, 1);
+	background-color: rgba(226, 4, 0, .9);
 }
 #vinvasive .evil-words .copy {
 	position: relative;
@@ -596,7 +631,7 @@ Vin Vasive
 	height: 0;
 	border-style: solid;
 	border-width: 20px 20px 0 0;
-	border-color: #e20400 transparent transparent transparent;
+	border-color: rgba(226, 4, 0, .9) transparent transparent transparent;
 
 }
 
@@ -611,9 +646,24 @@ Pest Popup
 	background-color: rgba(229, 196, 57, 1);
 	display: none;
 }
+#pest-popup.left {
+	top: 56px;
+	left: 164px;
+}
+#pest-popup.right {
+	top: 56px;
+	right: 164px;
+}
+#pest-popup .title {
+	position: relative;
+	padding: 20px 20px 8px 20px;
+	font-size: 16px;
+	color: #FFFFFF;
+	line-height: 20px;
+}
 #pest-popup .info {
 	position: relative;
-	padding: 20px;
+	padding: 0 20px 20px 20px;
 	font-size: 13px;
 	line-height: 16px;
 	color: black;
@@ -624,6 +674,9 @@ Pest Popup
 }
 #pest-popup .img {
 	position: relative;
+	width: 248px;
+	height: 192px;
+	text-align: center;
 
 }
 
@@ -664,6 +717,70 @@ Kitchen
 #kitchen {
 	background-image: url("../img/backgrounds/kitchen.png");
 }
+#kitchen .check-mark.orangejuice {
+	top: 72px;
+	left: 120px;
+}
+#kitchen .check-mark.oatmeal {
+	top: 72px;
+	left: 212px;
+}
+#kitchen .check-mark.pancakes {
+	top: 164px;
+	left: 124px;
+}
+#kitchen .check-mark.raspberries {
+	top: 164px;
+	left: 212px;
+}
+#kitchen .check-mark.bananas {
+	top: 248px;
+	left: 124px;
+}
+#kitchen .check-mark.syrup {
+	top: 248px;
+	left: 212px;
+}
+#kitchen .check-mark.ketchup {
+	top: 288px;
+	left: 354px;
+}
+#kitchen .check-mark.peanutbutter {
+	top: 280px;
+	left: 440px;
+}
+#kitchen .check-mark.lemonade {
+	top: 272px;
+	left: 596px;
+}
+#kitchen .check-mark.macncheese {
+	top: 256px;
+	left: 732px;
+}
+#kitchen .check-mark.corn {
+	top: 374px;
+	left: 596px;
+}
+#kitchen .check-mark.chipsguac {
+	top: 352px;
+	left: 704px;
+}
+#kitchen .check-mark.apples {
+	top: 140px;
+	left: 448px;
+}
+#kitchen .check-mark.nuts {
+	top: 128px;
+	left: 646px;
+}
+#kitchen .check-mark.brownies {
+	top: 128px;
+	left: 712px;
+}
+#kitchen .check-mark.grapes {
+	top: 36px;
+	left: 694px;
+}
 
 /*
 Garage
@@ -672,6 +789,30 @@ Garage
 #garage {
 	background-image: url("../img/backgrounds/garage.png");
 }
+#garage .check-mark.bat {
+	top: 376px;
+	left: 172px;
+}
+#garage .check-mark.magazines {
+	top: 388px;
+	left: 302px;
+}
+#garage .check-mark.puppy {
+	top: 388px;
+	left: 446px;
+}
+#garage .check-mark.ball {
+	top: 356px;
+	left: 548px;
+}
+#garage .check-mark.hoodie {
+	top: 272px;
+	left: 432px;
+}
+#garage .check-mark.sketchpad {
+	top: 272px;
+	left: 642px;
+}
 
 /*
 Outdoors
@@ -679,6 +820,38 @@ Outdoors
 
 #outdoors {
 	background-image: url("../img/backgrounds/outdoors.png");
+}
+#outdoors .check-mark.hiking {
+	top: 304px;
+	left: 74px;
+}
+#outdoors .check-mark.applebasket {
+	top: 338px;
+	left: 200px;
+}
+#outdoors .check-mark.bike {
+	top: 416px;
+	left: 88px;
+}
+#outdoors .check-mark.picnic {
+	top: 400px;
+	left: 290px;
+}
+#outdoors .check-mark.books {
+	top: 438px;
+	left: 498px;
+}
+#outdoors .check-mark.swing {
+	top: 254px;
+	left: 418px;
+}
+#outdoors .check-mark.treehouse {
+	top: 200px;
+	left: 578px;
+}
+#outdoors .check-mark.flowers {
+	top: 408px;
+	left: 720px;
 }
 
 /*
@@ -756,6 +929,43 @@ Final
 	padding: 8px 20px;
 	font-size: 16px;
 	line-height: 20px;
+}
+#final .cta-3 .cta-restart {
+	position: absolute;
+	top: 502px;
+	left: 120px;
+	padding: 8px 20px;
+	font-size: 28px;
+	line-height: 32px;
+	-webkit-transition: color .4s;
+	-moz-transition: color .4s;
+	-ms-transition: color .4s;
+	-o-transition: color .4s;
+	transition: color .4s;	
+}
+#final .cta-3 .cta-restart:hover {
+	color: #199e93;
+}
+#final .cta-3 .cta-social {
+	position: absolute;
+	top: 510px;
+	left: 20px;
+	width: 100px;
+	height: 32px;
+}
+#final .cta-3 .cta-social .icon {
+	float: left;
+	width: 32px;
+	height: 32px;
+}
+#final .cta-3 .cta-social .fb {
+	
+}
+#final .cta-3 .cta-social .tw {
+	
+}
+#final .cta-3 .cta-social .em {
+	
 }
 
 /*
@@ -858,12 +1068,12 @@ Final - Unique Icons
 #final .icon.orangejuice.inactive {
 	background: url('../img/elements/icons.png') -288px -96px;
 }
-#final .icon.chipsnguac {
+#final .icon.chipsguac {
 	top: 96px;
 	left: 192px;
 	background: url('../img/elements/icons.png') -384px -96px;
 }
-#final .icon.chipsnguac.inactive {
+#final .icon.chipsguac.inactive {
 	background: url('../img/elements/icons.png') -480px -96px;
 }
 #final .icon.bananas {

@@ -122,6 +122,7 @@
                     "copy": false
                 },
                 "pest": {
+                    "title": "Raspberries",
                     "copy": "The <strong>light brown apple moth</strong> attacks raspberries, blackberries, and boysenberries.",
                     "src": "img/pests/light-brown-apple-moth.png"
                 }
@@ -134,6 +135,7 @@
                     "copy": false
                 },
                 "pest": {
+                    "title": "Bananas",
                     "copy": "The <strong>false codling moth</strong> is a threat to many of our fruits, including bananas.",
                     "src": "img/pests/false-codling-moth.png"
                 }
@@ -146,6 +148,7 @@
                     "copy": false
                 },
                 "pest": {
+                    "title": "Pancakes",
                     "copy": "The <strong>Khapra beetle</strong> is one of the world's most destructive pests of stored grain products, and the flour used to make pancakes comes from wheat grain.",
                     "src": "img/pests/khapra-beetle.png"
                 }
@@ -158,6 +161,7 @@
                     "copy": "Look at that. You and I both have a sweet tooth!"
                 },
                 "pest": {
+                    "title": "Maple Syrup",
                     "copy": "The <strong>Asian longhorned beetle</strong> is a threat to America's hardwood trees, including the maple trees used to make maple syrup.",
                     "src": "img/pests/asian-longhorned-beetle.png"
                 }
@@ -189,6 +193,7 @@
                     "copy": false
                 },
                 "pest": {
+                    "title": "Orange Juice",
                     "copy": "The <strong>Asian citrus psyllid</strong> spreads a devastating disease&mdash;<em>huanglongbing</em> or citrus greening&mdash;to citrus plants like lemon, orange, and lime trees.",
                     "src": "img/pests/asian-citrus-psyllid.png"
                 }
@@ -222,6 +227,7 @@
                     "copy": false
                 },
                 "pest": {
+                    "title": "Peanut Butter",
                     "copy": "The <strong>European grapevine moth</strong> feeds on the grapes used to make grape jelly for your peanut buter and jelly sandwiches.",
                     "src": "img/pests/european-grapevine-moth.png"
                 }
@@ -234,6 +240,7 @@
                     "copy": false
                 },
                 "pest": {
+                    "title": "Ketchup",
                     "copy": "The <strong>Oriental fruit fly's</strong> maggots would love to eat and spoil tomatoes, which are used to make your ketchup.",
                     "src": "img/pests/oriental-fruit-fly.png"
                 }
@@ -246,6 +253,7 @@
                     "copy": "I took a sip. You don't mind, do you?"
                 },
                 "pest": {
+                    "title": "Lemonade",
                     "copy": "The <strong>Asian citrus psyllid</strong> spreads a devastating disease&mdash;<em>huanglongbing</em> or citrus greening&mdash;to citrus plants like lemon, orange, and lime trees.",
                     "src": "img/pests/asian-citrus-psyllid.png"
                 }
@@ -258,6 +266,7 @@
                     "copy": false
                 },
                 "pest": {
+                    "title": "Corn",
                     "copy": "The <strong>false codling moth</strong> is a threat to many of our vegetables, including corn.",
                     "src": "img/pests/false-codling-moth.png"
                 }
@@ -270,6 +279,7 @@
                     "copy": false
                 },
                 "pest": {
+                    "title": "Guacamole",
                     "copy": "The <strong>light brown apple moth</strong> attacks a wide array of agricultural commodities, including avocadoes used to make guacamole.",
                     "src": "img/pests/light-brown-apple-moth.png"
                 }
@@ -282,6 +292,7 @@
                     "copy": false
                 },
                 "pest": {
+                    "title": "Macaroni and Cheese",
                     "copy": "The <strong>Khapra beetle</strong> is one of the world's most destructive pests of stored grain and dried food products like the noodles used to make macaroni and cheese.",
                     "src": "img/pests/khapra-beetle.png"
                 }
@@ -334,6 +345,7 @@
                     "copy": false
                 },
                 "pest": {
+                    "title": "Grapes",
                     "copy": "The <strong>European grapevine moth</strong> feeds on the flower or fruit of host plants, most often grapes.",
                     "src": "img/pests/european-grapevine-moth.png"
                 }
@@ -346,6 +358,7 @@
                     "copy": false
                 },
                 "pest": {
+                    "title": "Apples",
                     "copy": "The <strong>Mediterranean fruit fly</strong> can infest hundreds of varieties of fruits, including apples.",
                     "src": "img/pests/mediterranean-fruit-fly.png"
                 }
@@ -358,7 +371,8 @@
                     "copy": false
                 },
                 "pest": {
-                    "copy": "",
+                    "title": "Nuts",
+                    "copy": "The <strong>Giant African Snail</strong> feeds on more than 500 types of plants, including peanuts.",
                     "src": "img/pests/giant-african-snail.png"
                 }
             },
@@ -370,6 +384,7 @@
                     "copy": false
                 },
                 "pest": {
+                    "title": "Brownies",
                     "copy": "The <strong>Khapra beetle</strong> is one of the world's most destructive pests of stored grain and dried food products, like the stored wheat that's used to make the flour in those brownies.",
                     "src": "img/pests/khapra-beetle.png"
                 }
@@ -423,6 +438,7 @@
                     "copy": false
                 },
                 "pest": {
+                    "title": "Magazines",
                     "copy": "The <strong>gypsy moth</strong> and Asian longhorned beetle are threats to America's hardwood trees, including birch trees used to make paper.",
                     "src": "img/pests/gypsy-moth.png"
                 }
@@ -435,6 +451,7 @@
                     "copy": "I'm having a ball!"
                 },
                 "pest": {
+                    "title": "Soccer Balls",
                     "copy": "Did you know cotton is used on the inside of soccer balls? The <strong>false codling moth</strong> feeds on more than 100 host plants, including cotton.",
                     "src": "img/pests/false-codling-moth.png"
                 }
@@ -471,6 +488,7 @@
                     "copy": false
                 },
                 "pest": {
+                    "title": "Baseball Bats",
                     "copy": "Baseball bats made from ash and maple are legendary, but invasive, tree-killing beetles, such as the <strong>emerald ash borer</strong> can tunnel into ash and maple trees and eat their insides.",
                     "src": "img/pests/emerald-ash-borer.png"
                 }
@@ -483,6 +501,7 @@
                     "copy": "I'll take care of him. Don't you worry!"
                 },
                 "pest": {
+                    "title": "Puppies",
                     "copy": "Young animals like puppies may be especially susceptible to the venom from an <strong>imported fire ant’s</strong> sting.",
                     "src": "img/pests/imported-fire-ant.png"
                 }
@@ -514,6 +533,7 @@
                     "copy": false
                 },
                 "pest": {
+                    "title": "Sweatshirts",
                     "copy": "The <strong>false codling moth</strong> feeds on more than 100 host plants, including the cotton used to make sweatshirts.",
                     "src": "img/pests/false-codling-moth.png"
                 }
@@ -526,6 +546,7 @@
                     "copy": false
                 },
                 "pest": {
+                    "title": "Paper",
                     "copy": "The <strong>Asian longhorned beetle</strong> and gypsy moth are threats to America's hardwood trees, including birch trees used to make paper.",
                     "src": "img/pests/asian-longhorned-beetle.png"
                 }
@@ -599,6 +620,7 @@
                     "copy": "Fancy meeting you here!"
                 },
                 "pest": {
+                    "title": "Tree Houses",
                     "copy": "The hardwood used to build tree houses is threatened by the <strong>Asian longhorned beetle</strong> and emerald ash borer.",
                     "src": "img/pests/asian-longhorned-beetle.png"
                 }
@@ -626,7 +648,7 @@
                     ],
                     "position": {
                         "x": 200,
-                        "y": 226
+                        "y": 212
                     },
                     "triangle": "bottom right"
                 },
@@ -635,6 +657,7 @@
                     "copy": false
                 },
                 "pest": {
+                    "title": "Books",
                     "copy": "The <strong>Asian longhorned beetle</strong> and gypsy moth are threats to America's hardwood trees, including birch trees used to make paper.",
                     "src": "img/pests/asian-longhorned-beetle.png"
                 }
@@ -647,6 +670,7 @@
                     "copy": false
                 },
                 "pest": {
+                    "title": "Trees",
                     "copy": "The Asian longhorned beetle, emerald ash borer, and <strong>gypsy moth</strong> threaten the trees that provide shade to hiking paths.",
                     "src": "img/pests/gypsy-moth.png"
                 }
@@ -659,6 +683,7 @@
                     "copy": "What beautiful scenery to bike through. I could just eat it up!"
                 },
                 "pest": {
+                    "title": "Outdoor Scenery",
                     "copy": "Your outdoor scenery could be ruined by the light brown apple moth, Asian longhorned beetle, emerald ash borer, gypsy moth, and <strong>sudden oak death</strong>.",
                     "src": "img/pests/sudden-oak-death.png"
                 }
@@ -695,6 +720,7 @@
                     "copy": false
                 },
                 "pest": {
+                    "title": "Apple Picking",
                     "copy": "The <strong>Mediterranean fruit fly</strong> can infest hundreds of varieties of fruits, including apples.",
                     "src": "img/pests/mediterranean-fruit-fly.png"
                 }
@@ -707,6 +733,7 @@
                     "copy": false
                 },
                 "pest": {
+                    "title": "Swings",
                     "copy": "The hardwood used to build tree swings, and hardwood trees themselves, are threatened by the Asian longhorned beetle, <strong>emerald ash borer</strong>, and gypsy moth.",
                     "src": "img/pests/emerald-ash-borer.png"
                 }
@@ -719,6 +746,7 @@
                     "copy": false
                 },
                 "pest": {
+                    "title": "Flowers",
                     "copy": "The <strong>light brown apple moth</strong> is a threat to many of the flowers we like to stop and smell.",
                     "src": "img/pests/light-brown-apple-moth.png"
                 }
@@ -731,6 +759,7 @@
                     "copy": false
                 },
                 "pest": {
+                    "title": "Picnic Tables",
                     "copy": "The hardwood used to build picnic tables are threatened by the Asian longhorned beetle, emerald ash borer, and <strong>gypsy moth</strong>.",
                     "src": "img/pests/gypsy-moth.png"
                 }

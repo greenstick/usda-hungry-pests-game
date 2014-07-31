@@ -47,11 +47,14 @@ Interactive Parent
 			Int.cta3 				= '#final .cta-3',
 			Int.pestPopup 			= '#pest-popup',
 			Int.activePest 			= ko.observable(''),
+			Int.pestTitle 			= ko.observable(''),
 			Int.pestInfo 			= ko.observable(''),
 			Int.vinvasiveMask 		= ko.observable(''),
 			Int.progressBarElement 	= '#progress-bar .bar',
 			Int.progressActive 		= '#progress-bar .bar.active',
 			Int.progressDone 		= '#progress-bar .bar.done',
+			Int.check 				= '#interactive-wrapper .check-mark',
+			Int.selectionEvent 		= (typeof Modernizr !== 'undefined') ? ((Modernizr.touch) ? "touchend" : "click") : "click",
 			Int.activeQuizItem,
 			Int.activeTerror,
 			Int.sceneData,
@@ -232,12 +235,12 @@ Interactive Navigation Handling
 		$(Int.scene).first().addClass(Int.snapFirst).addClass(Int.snapCurrent);
 		$(Int.scene).last().addClass(Int.snapLast);
 		if (Int.mobile === true) {
-			$(Int.wrapper).on("touchstart", function (e) {
-				Int.touchStart(e);
-			});
-			$(Int.wrapper).on("touchmove", function (e) {
-				Int.touchMoveY(e);
-			});
+			// $(Int.wrapper).on("touchstart", function (e) {
+			// 	Int.touchStart(e);
+			// });
+			// $(Int.wrapper).on("touchmove", function (e) {
+			// 	Int.touchMoveY(e);
+			// });
 		} else {
 			$(Int.wrapper).on('mousewheel DOMMouseScroll MozMousePixelScroll wheel', function (e) {
 				Int.scrollDelta(e);
@@ -274,7 +277,7 @@ Interactive Navigation Handling
 		var offset = {};
 		offset.y = this.startPosition.y - e.originalEvent.pageY;
 		this.delta = offset.y;
-		if (Math.abs(this.delta) >= 10) {
+		if (Math.abs(this.delta) >= 20) {
 			e.preventDefault ? e.preventDefault() : e.returnValue = false;
 			this.scrollDirectionY();
 		}
@@ -320,8 +323,7 @@ Interactive Navigation Handling
 					this.scrolling = true;
 					this.nextScene();
 				} else if (this.delta < 1.25) {
-					this.scrolling = true;
-					this.prevScene();
+					return
 				} else return;
 			};
 		} else {
@@ -330,8 +332,7 @@ Interactive Navigation Handling
 					this.scrolling = true;
 					this.nextScene();
 				} else if (this.delta >= 1) {
-					this.scrolling = true;
-					this.prevScene();
+					return
 				} else return;
 			};
 		};
@@ -371,6 +372,7 @@ Interactive Item Handling
 		} else {
 			Int.collector.add(id);
 			$(Int.finalIcon + '.' + id).addClass('selected');
+			$(Int.check + '.' + id).addClass('active');
 			Int.itemCount++;
 			if ((Int.itemCount) === Int.sceneData.limit) {
 				Int.sceneEnd();
@@ -383,6 +385,7 @@ Interactive Item Handling
 		var Int = interactive;
 		if ($(Int.collectorIcon + "." + id).hasClass('noselect')) return;
 		Int.collector.remove(id);
+		$(Int.check + '.' + id).removeClass('active');
 		$(Int.finalIcon + '.' + id).removeClass('selected');
 		$("#" + id).attr('class', 'item selectable');
 		Int.itemCount--;
@@ -411,6 +414,7 @@ Interactive Quiz & Vin Vasive & Pests
 			$(Int.vinvasiveElement).css("left", "-329px");
 			$(Int.vinvasiveBubble).css("left", "-152px");
 		});
+		$(Int.check + '.' + Int.activeTerror).addClass('active');
 		Int.collector.add(Int.activeTerror);
 		$(Int.finalIcon + '.' + Int.activeTerror).addClass('selected');
 		Int.itemCount++;
@@ -439,6 +443,7 @@ Interactive Quiz & Vin Vasive & Pests
 		var Int = this;
 		Int.collector.add(Int.activeQuizItem);
 		$(Int.finalIcon + '.' + Int.activeQuizItem).addClass('selected');
+		$(Int.check + '.' + Int.activeQuizItem).addClass('active');
 		Int.itemCount++;
 		if (Int.itemCount === Int.sceneData.limit) {
 			Int.sceneEnd();
@@ -449,9 +454,12 @@ Interactive Quiz & Vin Vasive & Pests
 	Interactive.prototype.showPest 				= function (id, e) {
 		var Int = this;
 		if (typeof Int.items[id] === 'undefined') return
+		Int.pestTitle(Int.items[id].pest.title);
 		Int.pestInfo(Int.items[id].pest.copy);
 		Int.activePest(Int.items[id].pest.src);
-		$(Int.pestPopup).css('left', e.clientX).css('top', e.clientY).stop().fadeIn();
+		if (e.pageX > Math.floor(window.innerWidth) / 2) $(Int.pestPopup).removeClass('right').addClass('left');
+		if (e.pageX < Math.floor(window.innerWidth) / 2) $(Int.pestPopup).removeClass('left').addClass('right');
+		$(Int.pestPopup).stop().fadeIn();
 	};
 
 	//Hide Pest on Final Scene
@@ -534,7 +542,6 @@ Interactive Scene Handling
 		var Int = this;
 		//Determine Previous State
 		if (destination === "next") previousState = Int.data[Int.index - 2];
-		if (destination === "prev") previousState = Int.data[Int.index];
 		//Scroll?
 		previousState.scroll === true ? Int.scrollPageY("next") : false;
 		//Hide Previous Mask
@@ -607,7 +614,6 @@ Interactive Global Macro Methods
 			Int.quiz = new Int._Quiz_({parent: Int});
 			//Apply Bindings
 			ko.applyBindings(interactive, document.getElementById('interactive-wrapper'));
-			console.log("mobile = " + Int.mobile);
 		});
 	};
 
@@ -618,14 +624,6 @@ Interactive Global Macro Methods
 		Int.setSceneData();
 		Int.setScene("next");
 		$(Int.collectorIcon).addClass("noselect");
-	};
-
-	//Previous Scene Macro
-	Interactive.prototype.prevScene 			= function () {
-		// var Int = this;
-		// Int.index--
-		// Int.setSceneData();
-		// Int.setScene("prev");
 	};
 
 /*
@@ -639,23 +637,23 @@ Instantiation & Initialization
 Global Event Bindings
 */
 
-	//Sets Interactive as Focus For Keypress Events on Mouseover
+	//Sets Interactive as Focus For Keypress Events on Mouseover - Desktop
 	$(interactive.wrapper).on("mouseover", function () {
 		$(this).focus();
 	});
 
-	// //Arrow Up & Arrow Down Navigation
-	// $(interactive.wrapper).on("keydown", function (e) {
-	// 	if (e.keyCode === 40) (e.preventDefault(), interactive.nextScene());
- 	//  if (e.keyCode === 38) (e.preventDefault(), interactive.prevScene());
-	// });
+	//Sets Interactive as Focus For Keypress Events on Mouseover - Mobile
+	$(interactive.wrapper).on("touchstart", function (e) {
+		$(this).focus();
+	});
+
 	//Click Intro Prompt To Start
-	$(interactive.introPrompt).on("click", function (e) {
+	$(interactive.introPrompt).on(interactive.selectionEvent, function (e) {
 		interactive.nextScene();
 	});
 
 	//Click Mask to Go To Next
-	$(interactive.wrapper + " " + interactive.mask).on("click", function (e) {
+	$(interactive.wrapper + " " + interactive.mask).on(interactive.selectionEvent, function (e) {
 		interactive.nextScene();
 	});
 
@@ -664,7 +662,7 @@ Item Event Bindings
 */
 	
 	//Item Selection
-	$(interactive.wrapper + " " + interactive.itemSelectable).on("click", function (e) {
+	$(interactive.wrapper + " " + interactive.itemSelectable).on(interactive.selectionEvent, function (e) {
 		var id = e.currentTarget.id;
 		interactive.selectItem(id);
 	});	
@@ -673,7 +671,7 @@ Item Event Bindings
 Vin Vasive Bindings
 */
 
-	$(interactive.vinvasive).on("click", function (e) {
+	$(interactive.vinvasive).on(interactive.selectionEvent, function (e) {
 		interactive.dismissTerror();
 	});
 
