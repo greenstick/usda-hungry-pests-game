@@ -25,7 +25,7 @@ Interactive Parent
 			Int.snapFirst 			= 'snapscroll-first',
 			Int.snapCurrent 		= 'snapscroll-current',
 			Int.snapLast 			= 'snapscroll-last',
-			Int.introPrompt 		= '#opening .begin',
+			Int.introPrompt 		= '#opening',
 			Int.items 				= {},
 			Int.scenes 				= ko.observableArray([]),
 			Int.masks 				= {},
@@ -363,6 +363,7 @@ Interactive Item Handling
 	Interactive.prototype.selectItem 			= function (id) {
 		var Int = this;
 		if (Int.itemCount === Int.sceneData.limit) return;
+		if (Int.items)
 		if ($('#' + id).attr('class').indexOf("selected") > -1) return;
 		$('#' + id).attr('class', 'icon selected');
 		if (Int.items[id].vin.element !== false) {
@@ -370,25 +371,24 @@ Interactive Item Handling
 		} else if (Int.items[id].quiz !== false) {
 			Int.loadQuiz(id);
 		} else {
-			Int.collector.add(id);
+			if ($.inArray(id, Int.collector.icons()) > -1) return;
 			$(Int.finalIcon + '.' + id).addClass('selected');
 			$(Int.check + '.' + id).addClass('active');
+			Int.collector.add(id);
 			Int.itemCount++;
-			if ((Int.itemCount) === Int.sceneData.limit) {
-				Int.sceneEnd();
-			}
-		}
+			if ((Int.itemCount) === Int.sceneData.limit) Int.sceneEnd();
+		};
 	};
 
 	//Item Deselection
 	Interactive.prototype.deselectItem 			= function (id, e) {
 		var Int = interactive;
 		if ($(Int.collectorIcon + "." + id).hasClass('noselect')) return;
-		Int.collector.remove(id);
 		$(Int.check + '.' + id).removeClass('active');
 		$(Int.finalIcon + '.' + id).removeClass('selected');
-		$("#" + id).attr('class', 'item selectable');
+		Int.collector.remove(id);
 		Int.itemCount--;
+		$("#" + id).attr('class', 'item selectable');
 	};
 
 /*
@@ -409,18 +409,17 @@ Interactive Quiz & Vin Vasive & Pests
 	//Make Him Go Away
 	Interactive.prototype.dismissTerror 		= function () {
 		var Int = this;
-		$(Int.vinvasive).fadeOut();
-		$(Int.wrapper + ' .' + Int.items[Int.activeTerror].vin.element).fadeOut(function () {
-			$(Int.vinvasiveElement).css("left", "-329px");
-			$(Int.vinvasiveBubble).css("left", "-152px");
-		});
-		$(Int.check + '.' + Int.activeTerror).addClass('active');
-		Int.collector.add(Int.activeTerror);
-		$(Int.finalIcon + '.' + Int.activeTerror).addClass('selected');
-		Int.itemCount++;
-		if (Int.itemCount === Int.sceneData.limit) {
-			Int.sceneEnd();
-		};
+			if ($.inArray(Int.activeTerror, Int.collector.icons()) > -1) return;
+			$(Int.vinvasive).fadeOut();
+			$(Int.wrapper + ' .' + Int.items[Int.activeTerror].vin.element).fadeOut(function () {
+				$(Int.vinvasiveElement).css("left", "-329px");
+				$(Int.vinvasiveBubble).css("left", "-152px");
+			});
+			$(Int.finalIcon + '.' + Int.activeTerror).addClass('selected');
+			$(Int.check + '.' + Int.activeTerror).addClass('active');
+			Int.collector.add(Int.activeTerror);
+			Int.itemCount++;
+			if (Int.itemCount === Int.sceneData.limit) Int.sceneEnd();
 	};
 
 	//Clear old Quiz Data and Load New Data
@@ -441,13 +440,12 @@ Interactive Quiz & Vin Vasive & Pests
 	//Dismiss Quiz and Push Item to Collector
 	Interactive.prototype.dismissQuiz 			= function () {
 		var Int = this;
-		Int.collector.add(Int.activeQuizItem);
+		if ($.inArray(Int.activeQuizItem, Int.collector.icons()) > -1) return;
 		$(Int.finalIcon + '.' + Int.activeQuizItem).addClass('selected');
 		$(Int.check + '.' + Int.activeQuizItem).addClass('active');
+		Int.collector.add(Int.activeQuizItem);
 		Int.itemCount++;
-		if (Int.itemCount === Int.sceneData.limit) {
-			Int.sceneEnd();
-		};
+		if (Int.itemCount === Int.sceneData.limit) Int.sceneEnd();
 	};
 
 	//Show Pest on Final Scene
@@ -513,10 +511,8 @@ Interactive Scene Handling
 	Interactive.prototype.setSceneData 			= function () {
 		var Int = this;
 		for (var i = 0; i < Int.data.length; i++) {
-			if ((i + 1) === Int.index) {
-				Int.sceneData = Int.data[i];
-			}
-		}
+			if ((i + 1) === Int.index) Int.sceneData = Int.data[i];
+		};
 		Int.itemCount = 0;
 		return Int.sceneData;
 	};
@@ -688,6 +684,31 @@ Final Screen Event Bindings
 	//Hide Pest
 	$(interactive.finalIcon).on("mouseleave", function (e) {
 		interactive.hidePest();
+	});
+
+/*
+Social Bindings
+*/
+
+	//Email
+	$('.cta-social .em').bind("click", function(event) {
+	    window.location = ('mailto:?subject=' + encodeURIComponent('Hungry Pests Interactive Game') + '&body=' + encodeURIComponent("<a href='http://hungrypests.com/resources/interactive.php' target='_blank'>Checkout this interactive game about Hungry Pests! Watchout for Vin Vasive!</a>"));
+	    // if(window.focus) { wnd.focus(); }
+	    return false; // Prevents closing the modal because there's a handler on the outer container
+	});
+
+	//Facebook
+	$('.cta-social .fb').bind("click", function(event) {
+	    var wnd = window.open('http://www.facebook.com/sharer.php?u=' + encodeURIComponent("http://hungrypests.com/resources/interactive.php") + '&p[summary]=' + encodeURIComponent("Checkout this interactive game about Hungry Pests! Watchout for Vin Vasive!"), 'facebook-share-dialog', 'height=436,width=626');
+	    if(window.focus) { wnd.focus(); }
+	    return false; // Prevents closing the modal because there's a handler on the outer container
+	});
+
+	//Twitter
+	$('.cta-social .tw').bind("click", function(event) {
+	    var wnd = window.open('http://twitter.com/intent/tweet?url=' + encodeURIComponent("http://hungrypests.com/resources/interactive.php") + '&text=' + encodeURIComponent("Checkout this interactive game about Hungry Pests via @HungryPests"), '', 'height=480,width=640');
+	    if(window.focus) { wnd.focus(); }
+	    return false; // Prevents closing the modal because there's a handler on the outer container
 	});
 
 }(jQuery, ko));

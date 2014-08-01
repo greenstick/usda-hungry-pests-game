@@ -174,12 +174,12 @@
                         {
                             "copy": "<span class=\"red\">A</span>True",
                             "value": false,
-                            "result": "TRUE: That's wishful thinking. Once a tree is infected with citrus greening disease, there is no cure (at least not yet)."
+                            "result": "That's wishful thinking. Once a tree is infected with citrus greening disease, there is no cure (at least not yet)."
                         },
                         {
                             "copy": "<span class=\"red\">B</span>False",
                             "value": true,
-                            "result": "FALSE: Correct. There is no cure for citrus greening, a disease carried by the Asian citrus psyllid."
+                            "result": "Correct. There is no cure for citrus greening, a disease carried by the Asian citrus psyllid."
                         }
                     ],
                     "position": {
@@ -514,12 +514,12 @@
                         {
                             "copy": "<span class=\"red\">A</span>True",
                             "value": false,
-                            "result": "TRUE: Think again! The false codling moth feeds on more than 100 host plants, including the cotton plant used to make sweatshirts."
+                            "result": "Think again! The false codling moth feeds on more than 100 host plants, including the cotton plant used to make sweatshirts."
                         },
                         {
                             "copy": "<span class=\"red\">B</span>False",
                             "value": true,
-                            "result": "FALSE: Can't fool you! Correct. The false codling moth feeds on more than 100 host plants, including the cotton plant used to make sweatshirts."
+                            "result": "Can't fool you! Correct. The false codling moth feeds on more than 100 host plants, including the cotton plant used to make sweatshirts."
                         }
                     ],
                     "position": {
@@ -704,7 +704,7 @@
                             "result": "Add another zero, and you’re in the ballpark! The Mediterranean fruit fly is considered the most important agricultural pest in the world, and can infest hundreds of varieties of fruits, vegetables, and nuts."
                         },
                         {
-                            "copy": "<span class=\"red\">C</span>200",
+                            "copy": "<span class=\"red\">C</span>Over 200",
                             "value": true,
                             "result": "Yep. The Mediterranean fruit fly is considered the most important agricultural pest in the world, and can infest hundreds of varieties of fruits, vegetables, and nuts."
                         }
