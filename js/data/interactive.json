@@ -86,7 +86,7 @@
                     "copy": false
                 },
                 "pest": {
-                    "copy": "The <strong>Khapra Beetle</strong> is one of the world's most destructive pests of stored grain products, including the oats used to make oatmeal",
+                    "copy": "The <strong>Khapra Beetle</strong> is one of the world's most destructive pests of stored grain products, including the oats used to make oatmeal.",
                     "src": "img/pests/khapra-beetle.png"
                 }
             },
@@ -131,8 +131,8 @@
                 "id": "bananas",
                 "quiz": false,
                 "vin": {
-                    "element": false,
-                    "copy": false
+                    "element": "vinvasive-2",
+                    "copy": "What, you think only monkeys like bananas?"
                 },
                 "pest": {
                     "title": "Bananas",
@@ -223,12 +223,12 @@
                 "id": "peanutbutter",
                 "quiz": false,
                 "vin": {
-                    "element": false,
-                    "copy": false
+                    "element": "vinvasive-1",
+                    "copy": "Mmm, PB&J. Hope you packed enough for the both of us!"
                 },
                 "pest": {
                     "title": "Peanut Butter",
-                    "copy": "The <strong>European grapevine moth</strong> feeds on the grapes used to make grape jelly for your peanut buter and jelly sandwiches.",
+                    "copy": "The <strong>European grapevine moth</strong> feeds on the grapes used to make grape jelly for your peanut butter and jelly sandwiches.",
                     "src": "img/pests/european-grapevine-moth.png"
                 }
             },
@@ -286,7 +286,31 @@
             },
             {
                 "id": "macncheese",
-                "quiz": false,
+                "quiz": {
+                    "question": "Which pest feasts on stored grains and dried food products like pasta?",
+                    "answer": [
+                        {
+                            "copy": "<span class=\"red\">A</span>Asian longhorned beetle",
+                            "value": false,
+                            "result": "The Khapra beetle feeds only a little bit on each grain, but one tiny beetle can damage a surprising amount of stored product."
+                        },
+                        {
+                            "copy": "<span class=\"red\">B</span>Khapra beetle",
+                            "value": true,
+                            "result": "You’re using your noodle! The Khapra beetle is able to survive almost anywhere in storage facilities that are protected from the cold."
+                        },
+                        {
+                            "copy": "<span class=\"red\">B</span>Emerald ash borer",
+                            "value": false,
+                            "result": "The Khapra beetle feeds only a little bit on each grain, but one tiny beetle can damage a surprising amount of stored product."
+                        }
+                    ],
+                    "position": {
+                        "x": 472,
+                        "y": 88
+                    },
+                    "triangle": "bottom right"
+                },
                 "vin": {
                     "element": false,
                     "copy": false
@@ -367,8 +391,8 @@
                 "id": "nuts",
                 "quiz": false,
                 "vin": {
-                    "element": false,
-                    "copy": false
+                    "element": "vinvasive-1",
+                    "copy": "Aw, nuts! You found me!"
                 },
                 "pest": {
                     "title": "Nuts",
@@ -385,7 +409,7 @@
                 },
                 "pest": {
                     "title": "Brownies",
-                    "copy": "The <strong>Khapra beetle</strong> is one of the world's most destructive pests of stored grain and dried food products, like the stored wheat that's used to make the flour in those brownies.",
+                    "copy": "The <strong>Khapra beetle</strong> is one of the world's most destructive pests of stored grain and dried food products, like the stored wheat that's used to make the flour in these brownies.",
                     "src": "img/pests/khapra-beetle.png"
                 }
             }
@@ -489,7 +513,7 @@
                 },
                 "pest": {
                     "title": "Baseball Bats",
-                    "copy": "Baseball bats made from ash and maple are legendary, but invasive, tree-killing beetles, such as the <strong>emerald ash borer</strong> can tunnel into ash and maple trees and eat their insides.",
+                    "copy": "Baseball bats made from ash and maple are legendary, but invasive, tree-killing beetles, such as the <strong>emerald ash borer</strong>, can tunnel into ash and maple trees and eat their insides.",
                     "src": "img/pests/emerald-ash-borer.png"
                 }
             },

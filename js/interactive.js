@@ -1,7 +1,5 @@
 (function () {
 
-/***************************************************************************************************/
-
 /*
 Interactive Parent
 */
@@ -36,6 +34,7 @@ Interactive Parent
 			Int.quizBody 			= '#quiz .quiz',
 			Int.quizExit 			= '#quiz .exit',
 			Int.vinvasive 			= '#vinvasive',
+			Int.vinvasiveDismiss 	= '#vinvasive .shoo',
 			Int.vinvasiveElement 	= '#vinvasive .vin-element',
 			Int.vinvasiveBubble 	= '#vinvasive .evil-words',
 			Int.terrifyingComment 	= '#vinvasive .evil-words .copy',
@@ -363,7 +362,6 @@ Interactive Item Handling
 	Interactive.prototype.selectItem 			= function (id) {
 		var Int = this;
 		if (Int.itemCount === Int.sceneData.limit) return;
-		if (Int.items)
 		if ($('#' + id).attr('class').indexOf("selected") > -1) return;
 		$('#' + id).attr('class', 'icon selected');
 		if (Int.items[id].vin.element !== false) {
@@ -667,7 +665,7 @@ Item Event Bindings
 Vin Vasive Bindings
 */
 
-	$(interactive.vinvasive).on(interactive.selectionEvent, function (e) {
+	$(interactive.vinvasiveDismiss).on(interactive.selectionEvent, function (e) {
 		interactive.dismissTerror();
 	});
 
