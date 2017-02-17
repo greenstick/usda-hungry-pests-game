@@ -1,5 +1,7 @@
 # [USDA Hungry Pests Game](https://greenstick.github.io/usda-hungry-pests-game/)
 
+![Screen Shot of Game](https://github.com/greenstick/usda-hungry-pests-game/blob/master/img/demo/screen-shot.png)
+
 ## Overview
 
 I developed this project while working at Column Five Media in 2014. The final client for the project was the United States Department of Agriculture and aimed to serve as a tool to educate middle schoolers on invasive pest species, so-called 'Hungry Pests.' This was perhaps one of my favorite projects I took on at Column Five; out team was given a lot of creative freedom, and I was given the duty of scoping our development, determining technical requirements & feasibility, and developing it. Ultimately, the project came in just under budget and was later deployed on the [USDA's Hungry Pests microsite](http://hungrypests.com/resources/interactive.php). 

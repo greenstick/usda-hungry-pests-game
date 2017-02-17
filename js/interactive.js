@@ -531,7 +531,7 @@ Interactive Scene Handling
 		Int.nextScene();
 	};
 
-	//Set State
+	//Set Scene State
 	Interactive.prototype.setScene 				= function (destination) {
 		var Int = this;
 		//Determine Previous State
